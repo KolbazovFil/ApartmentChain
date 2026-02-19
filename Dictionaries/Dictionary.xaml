@@ -106,6 +106,7 @@
     
     
     
+    
     <!-- Image -->
     <Style x:Key="ImageStyle" TargetType="Image">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -121,13 +122,13 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="FontSize" Value="20"/>
     </Style>
     
     <!-- MenuItem -->
     <Style x:Key="MenuItemStyle" TargetType="MenuItem">
-        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Width" Value="100"/>
@@ -138,18 +139,16 @@
                         <StackPanel>
                             <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <Popup x:Name="SubMenuPopup" Placement="Bottom" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource AncestorType=MenuItem}}">
-                                <Border Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+                                <Border Cursor="Hand" Background="#b9ab86" BorderBrush="#af9f74" BorderThickness="2">
                                     <ItemsPresenter/>
                                 </Border>
                             </Popup>
                         </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <!-- Открывать подменю при наведении -->
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="SubMenuPopup" Property="IsOpen" Value="True"/>
                         </Trigger>
-                        <!-- Можно добавить триггер для закрытия подменю -->
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

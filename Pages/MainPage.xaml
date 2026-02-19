@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ApartmentChain.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Главная страница">
+      Title="Главная страница" Background="White">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -18,15 +18,17 @@
 
         <StackPanel Name="MenuStackPanel" Orientation="Horizontal">
             <Image Name="LogoPhoto" Cursor="Hand" Source="../Resources/Logo.png" MouseLeftButtonUp="LogoPhoto_MouseLeftButtonUp"/>
+            
             <Menu Style="{StaticResource MenuStyle}">
                 <MenuItem Header="Проекты" Name="ProjectMenu" Style="{StaticResource MenuItemStyle}">
                     <MenuItem Header="Беговая" Name="BegovayaMenu"/>
+                    <Separator Background="#514422"/>
                     <MenuItem Header="Спиридоновка" Name="SpiridonovkaMenu"/>
                 </MenuItem>
-                <MenuItem Header="Новости" Name="NewsMenu">
+                <MenuItem Header="Новости" Name="NewsMenu" Style="{StaticResource MenuItemStyle}">
                     <Separator/>
                 </MenuItem>
-                <MenuItem Header="Каталог" Name="CatalogMenu"/>
+                <MenuItem Header="Каталог" Name="CatalogMenu" Style="{StaticResource MenuItemStyle}"/>
             </Menu>
         </StackPanel>
 

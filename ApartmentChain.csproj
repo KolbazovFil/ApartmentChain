@@ -58,7 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dictionary.xaml">
+    <Page Include="Dictionaries\Dictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\script.sql" />
+    <Resource Include="Resources\Transparent.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
