@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="45a69bbf9c5444c18fe00a2e515d73c5" Name="Diagram1">
+        <EntityTypeShape EntityType="ApartmentChainModel.Apartaments" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.ApartmentAddress" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.ApartmentPhotos" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.ApartmentStatus" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.ApartmentType" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.Booking" Width="1.5" PointX="10.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.BookingStatus" Width="1.5" PointX="8.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.Cities" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.Countries" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.MethodOfPay" Width="1.5" PointX="10.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.Payments" Width="1.5" PointX="12.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.Regions" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.Reviews" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.Roles" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.Streets" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApartmentChainModel.Users" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <AssociationConnector Association="ApartmentChainModel.FK_Apartaments_ApartmentAddress" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_Apartaments_ApartmentStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_Apartaments_ApartmentType" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_ApartmentPhotos_Apartment" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_Booking_Apartaments" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_Reviews_Apartaments" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_ApartmentAddress_Cities" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_ApartmentAddress_Countries" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_ApartmentAddress_Regions" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_ApartmentAddress_Streets" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_Booking_BookingStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_Booking_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_Payments_Booking" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_Payments_MethodOfPay" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_Reviews_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ApartmentChainModel.FK_Users_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
