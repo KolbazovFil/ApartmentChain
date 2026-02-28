@@ -44,11 +44,11 @@ namespace ApartmentChain
         public virtual DbSet<Countries> Countries { get; set; }
         public virtual DbSet<MethodOfPay> MethodOfPay { get; set; }
         public virtual DbSet<Payments> Payments { get; set; }
+        public virtual DbSet<Rating> Rating { get; set; }
         public virtual DbSet<Regions> Regions { get; set; }
         public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Streets> Streets { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }
 }

@@ -94,6 +94,10 @@ namespace ApartmentChain.Pages
             MessageBox.Show("Вы нажали на Логотип!", "Внимание");
         }
 
+        private void AuthButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService != null) NavigationService.Navigate(new AuthPage());
+        }
     }
 
     public class ApartmentPhotosViewModel : INotifyPropertyChanged

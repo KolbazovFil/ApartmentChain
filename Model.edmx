@@ -99,6 +99,13 @@
           <Property Name="MethodID" Type="int" Nullable="false" />
           <Property Name="BookingID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Regions">
           <Key>
             <PropertyRef Name="ID" />
@@ -129,16 +136,6 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Street" Type="nvarchar" MaxLength="100" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -357,11 +354,11 @@
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MethodOfPay" EntityType="Self.MethodOfPay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Streets" EntityType="Self.Streets" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Apartaments_ApartmentAddress" Association="Self.FK_Apartaments_ApartmentAddress">
             <End Role="ApartmentAddress" EntitySet="ApartmentAddress" />
@@ -551,6 +548,13 @@
           <NavigationProperty Name="Booking" Relationship="Self.FK_Payments_Booking" FromRole="Payments" ToRole="Booking" />
           <NavigationProperty Name="MethodOfPay" Relationship="Self.FK_Payments_MethodOfPay" FromRole="Payments" ToRole="MethodOfPay" />
         </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Rating1" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Regions">
           <Key>
             <PropertyRef Name="ID" />
@@ -586,16 +590,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ApartmentAddress" Relationship="Self.FK_ApartmentAddress_Streets" FromRole="Streets" ToRole="ApartmentAddress" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -817,11 +811,11 @@
           <EntitySet Name="Countries" EntityType="Self.Countries" />
           <EntitySet Name="MethodOfPay" EntityType="Self.MethodOfPay" />
           <EntitySet Name="Payments" EntityType="Self.Payments" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" />
           <EntitySet Name="Regions" EntityType="Self.Regions" />
           <EntitySet Name="Reviews" EntityType="Self.Reviews" />
           <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="Streets" EntityType="Self.Streets" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Users" EntityType="Self.Users" />
           <AssociationSet Name="FK_Apartaments_ApartmentAddress" Association="Self.FK_Apartaments_ApartmentAddress">
             <End Role="ApartmentAddress" EntitySet="ApartmentAddress" />
@@ -999,6 +993,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Rating">
+            <EntityTypeMapping TypeName="ApartmentChainModel.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Rating1" ColumnName="Rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Regions">
             <EntityTypeMapping TypeName="ApartmentChainModel.Regions">
               <MappingFragment StoreEntitySet="Regions">
@@ -1031,17 +1033,6 @@
               <MappingFragment StoreEntitySet="Streets">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ApartmentChainModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
