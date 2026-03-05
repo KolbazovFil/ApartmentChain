@@ -24,7 +24,7 @@ namespace ApartmentChain
         public int ID { get; set; }
         public string Name { get; set; }
         public string Surename { get; set; }
-        public Nullable<System.DateTime> Birthday { get; set; }
+        public System.DateTime Birthday { get; set; }
         public string PhoneNumber { get; set; }
         public int RoleID { get; set; }
         public string Login { get; set; }

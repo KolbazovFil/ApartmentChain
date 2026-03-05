@@ -5,8 +5,57 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ApartmentChain"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Оснавная страница" Background="#D2B48C" Height="450" Width="800">
     <Grid>
-        <Frame Name="MainFrame" Source="Pages/MainPage.xaml" NavigationUIVisibility="Hidden" Navigated="MainFrame_OnNavigated" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Name="MenuStackPanel" Orientation="Horizontal">
+            <Image Name="LogoPhoto" Cursor="Hand" Source="/Resources/Logo.png" MouseLeftButtonUp="LogoPhoto_MouseLeftButtonUp"/>
+
+            <Menu Style="{StaticResource MenuStyle}">
+                <MenuItem Header="Города" ToolTip="Выберите город" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="Москва"/>
+                    <Separator Style="{StaticResource SeparatorStyle}"/>
+                    <MenuItem Header="Санкт-Петербург"/>
+                    <Separator Style="{StaticResource SeparatorStyle}"/>
+                    <MenuItem Header="Сочи"/>
+                    <Separator Style="{StaticResource SeparatorStyle}"/>
+                    <MenuItem Header="Казань"/>
+                    <Separator Style="{StaticResource SeparatorStyle}"/>
+                    <MenuItem Header="Екатеринбург"/>
+                </MenuItem>
+
+                <MenuItem Header="Локации" ToolTip="Выберите локацию" Style="{StaticResource MenuItemStyle}">
+                    <MenuItem Header="Страны"/>
+                    <Separator Style="{StaticResource SeparatorStyle}"/>
+                    <MenuItem Header="Города"/>
+                    <Separator Style="{StaticResource SeparatorStyle}"/>
+                    <MenuItem Header="Регионы"/>
+                    <Separator Style="{StaticResource SeparatorStyle}"/>
+                    <MenuItem Header="Улицы"/>
+                </MenuItem>
+
+                <MenuItem Header="Отзывы" ToolTip="Нажмите для просмотра отзывов" Style="{StaticResource MenuItemStyle}"/>
+                <MenuItem Header="Справка" ToolTip="Нажмите для просмотра справки" Style="{StaticResource MenuItemStyle}"/>
+                <MenuItem Header="Выход" ToolTip="Нажмите для завершения работы с приложением" Style="{StaticResource MenuItemStyle}"/>
+            </Menu>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Name="AuthButton" Content="Войти" Width="80" Height="40" Margin="0,0,10,0" ToolTip="Войдите или создайте аккаунт, чтобы использовать все возможности сервиса" Style="{StaticResource ButtonStyle}" Click="AuthButton_Click"/>
+            <StackPanel Name="ProfilePanel" Orientation="Horizontal" Visibility="Collapsed">
+                <Button Name="ProfileButton" Width="130" Height="40" Style="{StaticResource ButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Resources/user_profile.ico" Height="25" Width="25"/>
+                        <TextBlock Text="Профиль" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <Frame Name="MainFrame" Source="Pages/MainPage.xaml" Grid.Row="1" NavigationUIVisibility="Hidden" Navigated="MainFrame_OnNavigated" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Window>

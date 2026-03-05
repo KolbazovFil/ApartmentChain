@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ApartmentChain.Pages
 {
@@ -28,7 +20,7 @@ namespace ApartmentChain.Pages
         }
         public bool Registration(string name, string surname, string login, string password, string confirmPassword, string birthday, string phone)
         {
-
+            string hashedPassword = HashPassword(password);
             DateTime? birthdayDate = null;
             if (!string.IsNullOrWhiteSpace(birthday))
             {
@@ -107,8 +99,8 @@ namespace ApartmentChain.Pages
                     Name = name,
                     Surename = surname,
                     Login = login,
-                    PasswordHash = password,
-                    Birthday = birthdayDate,
+                    PasswordHash = hashedPassword,
+                    Birthday = birthdayDate ?? DateTime.MinValue,
                     PhoneNumber = phone,
                     RoleID = 2
                 };
@@ -121,7 +113,25 @@ namespace ApartmentChain.Pages
                 return true;
             }
         }
+        public static string HashPassword(string password)
+        {
+            byte[] salt = new byte[16];
+            using (var rng = new System.Security.Cryptography.RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(salt);
+            }
 
+            using (var pbkdf2 = new System.Security.Cryptography.Rfc2898DeriveBytes(password, salt, 10000))
+            {
+                byte[] hash = pbkdf2.GetBytes(20);
+                
+                byte[] hashBytes = new byte[36];
+                Array.Copy(salt, 0, hashBytes, 0, 16);
+                Array.Copy(hash, 0, hashBytes, 16, 20);
+
+                return Convert.ToBase64String(hashBytes);
+            }
+        }
         private void Clear()
         {
             NameTextBox.Clear();
@@ -131,7 +141,6 @@ namespace ApartmentChain.Pages
             ConfirmPasswordBox.Clear();
             PhoneNumberTextBox.Clear();
         }
-
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();

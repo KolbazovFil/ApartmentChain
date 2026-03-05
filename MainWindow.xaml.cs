@@ -12,12 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ApartmentChain.Pages;
 
 namespace ApartmentChain
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -28,6 +27,14 @@ namespace ApartmentChain
         {
             if (!(e.Content is Page page)) return;
             this.Title = page.Title;
+        }
+        private void LogoPhoto_MouseLeftButtonUp(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new MainPage());
+        }
+        private void AuthButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new AuthPage());
         }
     }
 }
