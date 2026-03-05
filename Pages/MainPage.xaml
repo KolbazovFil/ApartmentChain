@@ -36,8 +36,8 @@
                         <Border DataContext="{Binding PhotosViewModel}" Grid.Row="0" HorizontalAlignment="Center" Width="500">
                             <Grid>
                                 <Image Source="{Binding CurrentPhoto}" Stretch="Fill"/>
-                                <Button Content="◀" Command="{Binding PrevPhotoCommand}" HorizontalAlignment="Left" Style="{StaticResource CommandButtonStyle}"/>
-                                <Button Content="▶" Command="{Binding NextPhotoCommand}" HorizontalAlignment="Right" Style="{StaticResource CommandButtonStyle}"/>
+                                <Button x:Name="PrevPhotoButton" Content="◀" Command="{Binding PrevPhotoCommand}" HorizontalAlignment="Left" Style="{StaticResource CommandButtonStyle}"/>
+                                <Button x:Name="NextPhotoButton" Content="▶" Command="{Binding NextPhotoCommand}" HorizontalAlignment="Right" Style="{StaticResource CommandButtonStyle}"/>
                             </Grid>
                         </Border>
 

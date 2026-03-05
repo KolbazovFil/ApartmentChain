@@ -17,11 +17,7 @@ using System.Windows.Shapes;
 
 namespace ApartmentChain.Pages
 {
-    public static class Session
-    {
-        public static bool IsAuthorized { get; set; } = false;
-        public static string CurrentUserLogin { get; set; } = null;
-    }
+
 
     public partial class MainPage : Page
     {
@@ -88,16 +84,6 @@ namespace ApartmentChain.Pages
                 }
             }
         }
-
-        private void LogoPhoto_MouseLeftButtonUp(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Вы нажали на Логотип!", "Внимание");
-        }
-
-        private void AuthButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (NavigationService != null) NavigationService.Navigate(new AuthPage());
-        }
     }
 
     public class ApartmentPhotosViewModel : INotifyPropertyChanged
@@ -118,7 +104,7 @@ namespace ApartmentChain.Pages
             }
         }
 
-        public string CurrentPhoto => Photos.Count > 0 ? Photos[CurrentIndex] : "/Resources/plug.png";  // возвращает текущюу фото по индексу
+        public string CurrentPhoto => Photos.Count > 0 ? Photos[CurrentIndex] : "/Resources/plug.png";  // возвращает текущую фото по индексу
 
         public ICommand PrevPhotoCommand { get; }
         public ICommand NextPhotoCommand { get; }

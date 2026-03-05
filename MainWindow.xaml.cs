@@ -19,6 +19,12 @@ namespace ApartmentChain
 
     public partial class MainWindow : Window
     {
+        public static class Session
+        {
+            public static bool IsAuthorized { get; set; } = false;
+            public static string CurrentUserLogin { get; set; } = null;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
