@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ApartmentChain.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="800"
-      Title="Регистрация" Background="White">
+      Title="Регистрация">
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
         <Grid.RowDefinitions>

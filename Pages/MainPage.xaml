@@ -14,7 +14,7 @@
             <ColumnDefinition Width="205"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <StackPanel x:Name="SortStackPanel" Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <TextBlock Text="Фильтры" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Center" FontWeight="Bold"/>
             <TextBlock Text="Минимальная цена" Style="{StaticResource TextBlockStyle}" />
@@ -33,7 +33,7 @@
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
 
-                        <Border DataContext="{Binding PhotosViewModel}" Grid.Row="0" HorizontalAlignment="Center" Width="500">
+                        <Border DataContext="{Binding PhotosViewModel}" Grid.Row="0" HorizontalAlignment="Center" Width="500" Margin="5">
                             <Grid>
                                 <Image Source="{Binding CurrentPhoto}" Stretch="Fill"/>
                                 <Button x:Name="PrevPhotoButton" Content="◀" Command="{Binding PrevPhotoCommand}" HorizontalAlignment="Left" Style="{StaticResource CommandButtonStyle}"/>
@@ -47,7 +47,7 @@
                             <TextBlock Text="{Binding Address}" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
                             <TextBlock Text="{Binding Building}" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
                         </StackPanel>
-                    
+
                         <Button Name="ToBookButton" Content="Забронировать" ToolTip="Перейти к бронированию" Grid.Row="2" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonStyle}"/>
                         <StackPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,10,0,0" Orientation="Horizontal">
                             <TextBlock Text="{Binding Price}" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
