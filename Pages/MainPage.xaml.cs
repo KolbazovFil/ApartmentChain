@@ -17,8 +17,6 @@ using System.Windows.Shapes;
 
 namespace ApartmentChain.Pages
 {
-
-
     public partial class MainPage : Page
     {
         public MainPage()
@@ -71,16 +69,6 @@ namespace ApartmentChain.Pages
                 {
                     Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
 
-                    //if (Session.IsAuthorized)
-                    //{
-                    //    Authorization.Visibility = Visibility.Collapsed;
-                    //    ProfilePanel.Visibility = Visibility.Visible;
-                    //}
-                    //else
-                    //{
-                    //    Authorization.Visibility = Visibility.Visible;
-                    //    ProfilePanel.Visibility = Visibility.Collapsed;
-                    //}
                 }
             }
         }

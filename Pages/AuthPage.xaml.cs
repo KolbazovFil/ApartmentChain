@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static ApartmentChain.MainWindow;
 
 namespace ApartmentChain.Pages
 {
@@ -55,15 +56,27 @@ namespace ApartmentChain.Pages
                     return false;
                 }
 
+                Session.IsAuthorized = true;
+                Session.CurrentUserLogin = user.Login;
+                ((MainWindow)Application.Current.MainWindow).UpdateUI();
+
                 MessageBox.Show("Пользователь успешно найден!", "Успех");
 
                 if (NavigationService != null)
                 {
-                    // Навигация в зависимости от роли. Пока страницы не созданы!
+                    if (user.RoleID == 1)
+                    {
+                        NavigationService.Navigate(new MainPageAdmin());
+                    }
+                    else
+                    {
+                        NavigationService.Navigate(new MainPage());
+                    }
                 }
                 return true;
             }
         }
+
         public static string HashPassword(string password)
         {
             byte[] salt = new byte[16];
