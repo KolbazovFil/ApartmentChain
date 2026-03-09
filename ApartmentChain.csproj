@@ -116,6 +116,9 @@
     <Compile Include="Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BookDetailsPage.xaml.cs">
+      <DependentUpon>BookDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\MainPageAdmin.xaml.cs">
       <DependentUpon>MainPageAdmin.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,9 @@
     <Compile Include="Streets.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Users.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -160,6 +166,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\AuthPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\BookDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

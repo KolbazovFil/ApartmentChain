@@ -48,11 +48,8 @@
                             <TextBlock Text="{Binding Building}" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
                         </StackPanel>
 
-                        <Button Name="ToBookButton" Content="Забронировать" ToolTip="Перейти к бронированию" Grid.Row="2" Margin="0,10,0,0" HorizontalAlignment="Left" Style="{StaticResource ButtonStyle}"/>
-                        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,10,0,0" Orientation="Horizontal">
-                            <TextBlock Text="{Binding Price}" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
-                            <TextBlock Text=" ₽ в сутки" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
-                        </StackPanel>
+                        <Button Name="ToBookButton" Content="Забронировать" ToolTip="Перейти к бронированию" Grid.Row="2" Margin="0,10,0,0" HorizontalAlignment="Left" Tag="{Binding Id}" Style="{StaticResource ButtonStyle}" Click="ToBookButton_Click"/>
+                        <TextBlock Text="{Binding Price, StringFormat=Цена: {0} ₽ в сутки}" Grid.Row="2" HorizontalAlignment="Right" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

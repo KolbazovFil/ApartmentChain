@@ -68,7 +68,26 @@ namespace ApartmentChain.Pages
                 if (Visibility == Visibility.Visible)
                 {
                     Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(x => x.Reload());
+                }
+            }
+        }
 
+        private void ToBookButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Session.IsAuthorized)
+            {
+                MessageBox.Show("Необходимо авторизобаться.", "Требуется авторизация", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            if (sender is Button btn && btn.Tag is int apartmentId)
+            {
+                var context = Entities.GetContext();
+                var apartment = context.Apartaments.FirstOrDefault(a => a.ID == apartmentId);
+                if (apartment != null)
+                {
+                    var bookingPage = new BookDetailsPage(apartment);
+                    NavigationService.Navigate(bookingPage);
                 }
             }
         }

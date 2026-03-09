@@ -1,0 +1,103 @@
+﻿<Page x:Class="ApartmentChain.Pages.BookDetailsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ApartmentChain.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="800"
+      Title="Детали бронирования">
+
+    <Grid>
+        <ScrollViewer x:Name="MainScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <StackPanel HorizontalAlignment="Center" Orientation="Vertical" VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Reviews}" FontWeight="Bold" FontSize="14"/>
+                    <Rectangle Width="20"/>
+                    
+                    <Label Cursor="Hand" MouseLeftButtonDown="Label_MouseLeftButtonDown">
+                        <TextBlock Text="{Binding ReviewsCountText}" TextDecorations="Underline"/>
+                    </Label>
+                    
+                    <TextBlock Text="{Binding Countries}" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="{Binding Cities}" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="{Binding Address}" Style="{StaticResource TextBlockStyle}"/>
+                    <Rectangle Width="200"/>
+                    <TextBlock Text="{Binding Price, StringFormat=Цена: {0} ₽ в сутки}" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
+                </StackPanel>
+
+                <Border DataContext="{Binding PhotosViewModel}" HorizontalAlignment="Center" Width="800" Height="450">
+                    <Grid>
+                        <Image Source="{Binding CurrentPhoto}" Stretch="Fill"/>
+                        <Button x:Name="PrevPhotoButton" Content="◀" Command="{Binding PrevPhotoCommand}" HorizontalAlignment="Left" Style="{StaticResource CommandButtonStyle}"/>
+                        <Button x:Name="NextPhotoButton" Content="▶" Command="{Binding NextPhotoCommand}" HorizontalAlignment="Right" Style="{StaticResource CommandButtonStyle}"/>
+                    </Grid>
+                </Border>
+                <Rectangle Height="10" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <DatePicker Name="ArivalDataPicker" Text="Прибытие" Width="150" Style="{StaticResource DatePickerStyle}"/>
+                    <Rectangle Width="10"/>
+                    <DatePicker Name="DepartureDataPicker" Width="150" Style="{StaticResource DatePickerStyle}"/>
+                    <Rectangle Width="10"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0">
+                        <TextBlock Text="Кол-во людей:" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}"/>
+                        <ComboBox x:Name="PeopleCountComboBox" Width="40" SelectedIndex="0">
+                            <ComboBoxItem Content="1"/>
+                            <ComboBoxItem Content="2"/>
+                            <ComboBoxItem Content="3"/>
+                        </ComboBox>
+                        <Rectangle Width="80"/>
+                    </StackPanel>
+                    <Button Name="ConfirmBookingButton" Content="Подтвердить бронирование" Width="250" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Right" Click="ConfirmBookingButton_Click"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Width="430" HorizontalAlignment="Left">
+                        <TextBlock Text="ОТЗЫВЫ" Height="50" Width="330" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
+                        <Button Name="AddReviewButton" Content="Коммент" Height="45" Width="100" Style="{StaticResource ButtonStyle}" Click="AddReviewButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
+                        <ListBox x:Name="ReviewsListBox" Width="450" MaxHeight="310" ItemsSource="{Binding ReviewsList}" Background="Transparent" BorderThickness="0" BorderBrush="Transparent">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Transparent" BorderThickness="0" MaxWidth="400">
+                                        <StackPanel Orientation="Vertical" Width="Auto">
+                                            <TextBlock Text="{Binding User}" TextDecorations="Underline"/>
+                                            <TextBlock Text="{Binding Text}" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding Rating, StringFormat=Оценка: {0}}" FontStyle="Italic"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+
+                    <Rectangle Width="5"/>
+
+                    <StackPanel x:Name="NewReviewPanel" Orientation="Vertical" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Рейтинг: " Style="{StaticResource TextBlockStyle}"/>
+                            <ComboBox x:Name="RatingComboBox" Width="35">
+                                <ComboBoxItem Content="1"/>
+                                <ComboBoxItem Content="2"/>
+                                <ComboBoxItem Content="3"/>
+                                <ComboBoxItem Content="4"/>
+                                <ComboBoxItem Content="5"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <TextBlock Text="Ваш отзыв:" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Left"/>
+                        <TextBox x:Name="NewReviewTextBox" VerticalContentAlignment="Top" Height="200" TextWrapping="Wrap" Width="350" AcceptsReturn="True" Style="{StaticResource TextBoxStyle}"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                            <Button Content="Отмена" Width="80" Margin="0,0,10,0" Style="{StaticResource ButtonStyle}" Click="CancelNewReview_Click"/>
+                            <Button Content="Отправить" Width="80" Style="{StaticResource ButtonStyle}" Click="SendNewReview_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
