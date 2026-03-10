@@ -6,20 +6,55 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace ApartmentChain.Pages
 {
     public partial class BookDetailsPage : Page
     {
         public Apartaments SelectedApartment { get; set; }
+        public ObservableCollection<MethodOfPay> PaymentMethods { get; set; } = new ObservableCollection<MethodOfPay>();
+
         public BookDetailsPage(Apartaments apartment)
         {
             InitializeComponent();
             SelectedApartment = apartment;
             DataContext = new BookDetailsViewModel(apartment);
             RatingComboBox.SelectedIndex = 3;
+            PeopleCountComboBox.SelectedIndex = 0;
+            LoadPaymentMethods();
         }
 
+        private void LoadPaymentMethods()
+        {
+            var context = Entities.GetContext();
+            var methods = context.MethodOfPay.ToList();
+            PaymentMethods.Clear();
+
+            foreach (var method in methods)
+            {
+                PaymentMethods.Add(method);
+            }
+
+            MethodOfPayComboBox.ItemsSource = PaymentMethods;
+            MethodOfPayComboBox.DisplayMemberPath = "Method";
+            MethodOfPayComboBox.SelectedValuePath = "ID";
+            if (PaymentMethods.Count > 0) MethodOfPayComboBox.SelectedIndex = 0;
+        }
+        private int GetCurrentCustomerID()
+        {
+            if (Session.IsAuthorized && !string.IsNullOrEmpty(Session.CurrentUserLogin))
+            {
+                var context = Entities.GetContext();
+
+                var user = context.Users.FirstOrDefault(u => u.Login == Session.CurrentUserLogin);
+                if (user != null)
+                {
+                    return user.ID;
+                }
+            }
+            return 0;
+        }
         private void ConfirmBookingButton_Click(object sender, RoutedEventArgs e)
         {
             var arrivalDate = ArivalDataPicker.SelectedDate;
@@ -33,23 +68,29 @@ namespace ApartmentChain.Pages
 
             if (arrivalDate == null || departureDate == null)
             {
-                MessageBox.Show("Пожалуйста, выберите даты прибытия и выезда.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Пожалуйста, выберите даты заезда и выезда.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
             if (arrivalDate >= departureDate)
             {
-                MessageBox.Show("Дата прибытия должна быть раньше даты выезда.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Дата заезда должна быть раньше даты выезда.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
+            if (MethodOfPayComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Пожалуйста, выберите метод оплаты.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            int selectedMethodID = (int)MethodOfPayComboBox.SelectedValue;
 
             var context = Entities.GetContext();
 
             int daysCount = (departureDate.Value - arrivalDate.Value).Days;
-
             double pricePerDay = SelectedApartment.Price;
-
             double totalCost = pricePerDay * daysCount;
-
             int currentCustomerID = GetCurrentCustomerID();
 
             var newBooking = new Booking
@@ -66,32 +107,27 @@ namespace ApartmentChain.Pages
             context.Booking.Add(newBooking);
             context.SaveChanges();
 
-            MessageBox.Show("Бронирование успешно сохранено!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+            var payment = new Payments
+            {
+                DateOFPayment = DateTime.Now,
+                MethodID = selectedMethodID,
+                BookingID = newBooking.ID
+            };
+
+            context.Payments.Add(payment);
+            context.SaveChanges();
+
+            MessageBox.Show("Отправлено на проверку, просьба следить за бронированием в профиле!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
             if (NavigationService != null) NavigationService.Navigate(new MainPage());
         }
 
-        private int GetCurrentCustomerID()
-        {
-            if (Session.IsAuthorized && !string.IsNullOrEmpty(Session.CurrentUserLogin))
-            {
-                var context = Entities.GetContext();
-
-                var user = context.Users.FirstOrDefault(u => u.Login == Session.CurrentUserLogin);
-                if (user != null)
-                {
-                    return user.ID;
-                }
-            }
-            return 0;
-        }
-
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var reviewsListBox = this.FindName("ReviewsListBox") as ListBox;
-            if (reviewsListBox != null)
+            var reviewsTextBlock = this.FindName("ReviewsTextBlock") as TextBlock;
+            if (reviewsTextBlock != null)
             {
-                reviewsListBox.BringIntoView();
+                reviewsTextBlock.BringIntoView();
             }
         }
 
@@ -114,11 +150,11 @@ namespace ApartmentChain.Pages
             string reviewText = NewReviewTextBox.Text.Trim();
             if (string.IsNullOrEmpty(reviewText))
             {
-                MessageBox.Show("Пожалуйста, введите отзыв.");
+                MessageBox.Show("Пожалуйста, введите текст отзыва");
                 return;
             }
 
-            SaveReviewToDatabase(reviewText);
+            SaveReview(reviewText);
             RefreshReviews();
 
             NewReviewPanel.Visibility = Visibility.Collapsed;
@@ -127,15 +163,10 @@ namespace ApartmentChain.Pages
             AddReviewButton.Visibility = Visibility.Visible;
         }
 
-        private void SaveReviewToDatabase(string reviewText)
+        private void SaveReview(string reviewText)
         {
             var context = Entities.GetContext();
             int currentUserID = GetCurrentCustomerID();
-            if (currentUserID == 0)
-            {
-                MessageBox.Show("Пожалуйста, войдите в систему для оставления комментария.");
-                return;
-            }
 
             int rating = 0;
             if (RatingComboBox != null && RatingComboBox.SelectedItem != null)
@@ -197,7 +228,6 @@ namespace ApartmentChain.Pages
             }
         }
     }
-
     public class BookDetailsViewModel : INotifyPropertyChanged
     {
         public string Countries { get; }
@@ -205,7 +235,6 @@ namespace ApartmentChain.Pages
         public string Cities { get; }
         public decimal Price { get; }
 
-        // Обновленное свойство Reviews с уведомлением о изменениях
         private string _reviews;
         public string Reviews
         {
@@ -217,6 +246,27 @@ namespace ApartmentChain.Pages
                     _reviews = value;
                     OnPropertyChanged(nameof(Reviews));
                 }
+            }
+        }
+
+        public Brush RatingBrush
+        {
+            get
+            {
+                if (Reviews == "Нет оценок" || string.IsNullOrEmpty(Reviews))
+                    return Brushes.Gray;
+
+                var parts = Reviews.Split('/');
+                if (parts.Length > 0 && double.TryParse(parts[0], out double rating))
+                {
+                    if (rating >= 4.5)
+                        return Brushes.Green;
+                    else if (rating >= 3.0)
+                        return Brushes.Orange;
+                    else
+                        return Brushes.Red;
+                }
+                return Brushes.Black;
             }
         }
 
@@ -237,7 +287,6 @@ namespace ApartmentChain.Pages
                 }
             }
         }
-
         public string ReviewsCountText
         {
             get
@@ -255,18 +304,34 @@ namespace ApartmentChain.Pages
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            if (name == nameof(Reviews))
+            {
+                OnPropertyChanged(nameof(RatingBrush));
+            }
+        }
+
         public BookDetailsViewModel(Apartaments apartment)
         {
             var context = Entities.GetContext();
             var addr = context.ApartmentAddress.FirstOrDefault(a => a.ID == apartment.AddressID);
             if (addr != null)
             {
-                Address = addr.Streets.Street + ", д. " + addr.Building;
-                var city = context.Cities.FirstOrDefault(c => c.ID == addr.CityID);
-                var country = context.Countries.FirstOrDefault(c => c.ID == addr.CountryID);
-                var region = context.Regions.FirstOrDefault(r => r.ID == addr.RegionID);
-                Cities = city != null ? city.City : "";
-                Countries = country != null ? country.Country : "";
+                var countryPart = !string.IsNullOrEmpty(addr.Countries?.Country) ? addr.Countries.Country : "";
+                var cityPart = !string.IsNullOrEmpty(addr.Cities?.City) ? addr.Cities.City : "";
+                var streetPart = addr.Streets?.Street ?? "";
+                var buildingPart = addr.Building ?? "";
+
+                var parts = new List<string>();
+                if (!string.IsNullOrEmpty(countryPart)) parts.Add(countryPart);
+                if (!string.IsNullOrEmpty(cityPart)) parts.Add(cityPart);
+                if (!string.IsNullOrEmpty(streetPart)) parts.Add(streetPart);
+                var addressString = string.Join(", ", parts) + $", д. {buildingPart}";
+
+                Address = addressString;
             }
 
             var reviews = context.Reviews.Where(r => r.ApartmentID == apartment.ID).ToList();
@@ -299,12 +364,6 @@ namespace ApartmentChain.Pages
                 Photos = photos,
                 CurrentIndex = 0
             };
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
     public class ReviewDisplay

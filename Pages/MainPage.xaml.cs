@@ -95,10 +95,10 @@ namespace ApartmentChain.Pages
 
     public class ApartmentPhotosViewModel : INotifyPropertyChanged
     {
-        public List<string> Photos { get; set; } // список ссылок
+        public List<string> Photos { get; set; }
 
         private int _currentIndex;
-        public int CurrentIndex // текущий индекс
+        public int CurrentIndex
         {
             get => _currentIndex;
             set
@@ -111,7 +111,44 @@ namespace ApartmentChain.Pages
             }
         }
 
-        public string CurrentPhoto => Photos.Count > 0 ? Photos[CurrentIndex] : "/Resources/plug.png";  // возвращает текущую фото по индексу
+        private string _reviews;
+        public string Reviews
+        {
+            get => _reviews;
+            set
+            {
+                if (_reviews != value)
+                {
+                    _reviews = value;
+                    OnPropertyChanged(nameof(Reviews));
+                    OnPropertyChanged(nameof(RatingBrush));
+                }
+            }
+        }
+
+        public Brush RatingBrush
+        {
+            get
+            {
+                if (Reviews == "Нет оценок" || string.IsNullOrEmpty(Reviews))
+                    return Brushes.Gray;
+
+                var parts = Reviews.Split('/');
+                if (parts.Length > 0 && double.TryParse(parts[0], out double rating))
+                {
+                    if (rating >= 4.5)
+                        return Brushes.Green;
+                    else if (rating >= 3.0)
+                        return Brushes.Orange;
+                    else
+                        return Brushes.Red;
+                }
+                return Brushes.Black;
+            }
+        }
+
+
+        public string CurrentPhoto => Photos.Count > 0 ? Photos[CurrentIndex] : "../Resources/plug.png";
 
         public ICommand PrevPhotoCommand { get; }
         public ICommand NextPhotoCommand { get; }
@@ -143,7 +180,6 @@ namespace ApartmentChain.Pages
     }
     public class RelayCommand : ICommand
     {
-        // Конструктор принимает делегат Action<object> execute, который вызывается при запуске команды.
         private readonly Action<object> _execute;
         private readonly Predicate<object> _canExecute;
 
@@ -152,7 +188,7 @@ namespace ApartmentChain.Pages
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
-        // CanExecute определяет, можно ли выполнить команду; по умолчанию — всегда можно.
+
         public bool CanExecute(object parameter) => _canExecute == null || _canExecute(parameter);
 
         public void Execute(object parameter) => _execute(parameter);
