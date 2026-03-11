@@ -36,9 +36,9 @@
         <TextBlock Text="Дата рождения" Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
         <TextBlock Text="Номер телефона" Grid.Row="7" Grid.Column="0" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
 
-        <TextBox Name="NameTextBox" ToolTip="Введите имя" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
-        <TextBox Name="SurnameTextBox" ToolTip="Введите фамилию" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
-        <TextBox Name="LoginTextBox" ToolTip="Введите логин" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
+        <TextBox Name="NameTextBox" ToolTip="Введите имя" Grid.Row="1" Grid.Column="1" Text="{Binding Name}"  Style="{StaticResource TextBoxStyle}"/>
+        <TextBox Name="SurnameTextBox" ToolTip="Введите фамилию" Grid.Row="2" Grid.Column="1" Text="{Binding Surename}" Style="{StaticResource TextBoxStyle}"/>
+        <TextBox Name="LoginTextBox" ToolTip="Введите логин" Grid.Row="3" Grid.Column="1" Text="{Binding Login}" Style="{StaticResource TextBoxStyle}"/>
         <PasswordBox Name="PasswordBox" ToolTip="Введите пароль" Grid.Row="4" Grid.Column="1" Style="{StaticResource PasswordBoxStyle}"/>
         <PasswordBox Name="ConfirmPasswordBox" ToolTip="Подтвердите пароль" Grid.Row="5" Grid.Column="1" Style="{StaticResource PasswordBoxStyle}"/>
         <DatePicker Name="BirthdayDatePicker" Grid.Row="6" ToolTip="Введите электронную почту" Grid.Column="1" Style="{StaticResource DatePickerStyle}"/>

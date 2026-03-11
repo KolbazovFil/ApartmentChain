@@ -10,9 +10,13 @@ namespace ApartmentChain.Pages
 {
     public partial class RegPage : Page
     {
-        public RegPage()
+        private Users _currentUser = new Users();
+        public RegPage(Users user)
         {
             InitializeComponent();
+            if (user != null) _currentUser = user;
+            DataContext = _currentUser;
+            
         }
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
@@ -113,6 +117,7 @@ namespace ApartmentChain.Pages
                 return true;
             }
         }
+
         public static string HashPassword(string password)
         {
             byte[] salt = new byte[16];
@@ -132,6 +137,7 @@ namespace ApartmentChain.Pages
                 return Convert.ToBase64String(hashBytes);
             }
         }
+
         private void Clear()
         {
             NameTextBox.Clear();
@@ -141,6 +147,7 @@ namespace ApartmentChain.Pages
             ConfirmPasswordBox.Clear();
             PhoneNumberTextBox.Clear();
         }
+
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();

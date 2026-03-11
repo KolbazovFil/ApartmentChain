@@ -6,9 +6,65 @@
       xmlns:local="clr-namespace:ApartmentChain.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MainPageAdmin">
+      Title="Страница администратора">
 
-    <Grid>
-        <Image Source="/Resources/Admin.jpeg" Stretch="UniformToFill"/>
+    <Grid Margin="10" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Пользователи" Grid.Row="0" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
+        <DataGrid x:Name="UsersDataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" HorizontalContentAlignment="Center">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="30" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Имя" Width="100" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Фамилия" Width="100" Binding="{Binding Surename}"/>
+                <DataGridTextColumn Header="Дата рождения" Width="100" Binding="{Binding Birthday}"/>
+                <DataGridTextColumn Header="Номер телефона" Width="120" Binding="{Binding PhoneNumber}"/>
+                <DataGridTextColumn Header="Роль" Width="100" Binding="{Binding Roles.Role}"/>
+                <DataGridTextColumn Header="Логин" Width="80" Binding="{Binding Login}"/>
+                <DataGridTextColumn Header="Пароль" Width="80" Binding="{Binding PasswordHash}"/>
+                <DataGridTemplateColumn Header="Действия" Width="300">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="Редактировать" Click="EditUser_Click" Height="30" Width="140" Style="{StaticResource ButtonStyle}"/>
+                                <Rectangle Width="10"/>
+                                <Button Content="Удалить" Click="DeleteUser_Click" Height="30" Width="140" Style="{StaticResource ButtonStyle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Text="Бронирования" Grid.Row="2" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
+        <DataGrid x:Name="BookingsDataGrid" Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Апартаменты" Binding="{Binding ApartmentID}"/>
+                <DataGridTextColumn Header="Заезд" Binding="{Binding Arrival}"/>
+                <DataGridTextColumn Header="Выезд" Binding="{Binding Departure}"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Users.Surename}"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Users.Name}"/>
+                <DataGridTextColumn Header="Количество людей" Binding="{Binding AmountOfPeople}"/>
+                <DataGridTextColumn Header="Сумма к оплате" Binding="{Binding TotalCost}"/>
+                <DataGridTextColumn Header="Статус бронирования" Binding="{Binding BookingStatus.Status}"/>
+
+                <DataGridTemplateColumn Header="Действия" Width="300">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="Редактировать" Height="30" Width="140" Style="{StaticResource ButtonStyle}" Click="EditBooking_Click"/>
+                                <Rectangle Width="10"/>
+                                <Button Content="Удалить" Height="30" Width="140" Style="{StaticResource ButtonStyle}" Click="DeleteBooking_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>
