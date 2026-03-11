@@ -19,15 +19,15 @@
         <TextBlock Text="Пользователи" Grid.Row="0" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
         <DataGrid x:Name="UsersDataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" HorizontalContentAlignment="Center">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Width="30" Binding="{Binding ID}"/>
-                <DataGridTextColumn Header="Имя" Width="100" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Фамилия" Width="100" Binding="{Binding Surename}"/>
-                <DataGridTextColumn Header="Дата рождения" Width="100" Binding="{Binding Birthday}"/>
-                <DataGridTextColumn Header="Номер телефона" Width="120" Binding="{Binding PhoneNumber}"/>
-                <DataGridTextColumn Header="Роль" Width="100" Binding="{Binding Roles.Role}"/>
-                <DataGridTextColumn Header="Логин" Width="80" Binding="{Binding Login}"/>
-                <DataGridTextColumn Header="Пароль" Width="80" Binding="{Binding PasswordHash}"/>
-                <DataGridTemplateColumn Header="Действия" Width="300">
+                <DataGridTextColumn Header="ID" MinWidth="30" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Имя" MinWidth="100" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Фамилия" MinWidth="100" Binding="{Binding Surename}"/>
+                <DataGridTextColumn Header="Дата рождения" MinWidth="100" Binding="{Binding Birthday, StringFormat=dd.MM.yyyy}"/>
+                <DataGridTextColumn Header="Номер телефона" MinWidth="120" Binding="{Binding PhoneNumber}"/>
+                <DataGridTextColumn Header="Роль" MinWidth="100" Binding="{Binding Roles.Role}"/>
+                <DataGridTextColumn Header="Логин" MinWidth="80" Binding="{Binding Login}"/>
+                <DataGridTextColumn Header="Пароль" MinWidth="80" Binding="{Binding PasswordHash}"/>
+                <DataGridTemplateColumn Header="Действия" MinWidth="300">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -53,7 +53,7 @@
                 <DataGridTextColumn Header="Сумма к оплате" Binding="{Binding TotalCost}"/>
                 <DataGridTextColumn Header="Статус бронирования" Binding="{Binding BookingStatus.Status}"/>
 
-                <DataGridTemplateColumn Header="Действия" Width="300">
+                <DataGridTemplateColumn Header="Действия" MinWidth="300">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

@@ -50,7 +50,7 @@ namespace ApartmentChain.Pages
                     return false;
                 }
 
-                if (!VerifyPassword(password, user.PasswordHash))
+                if (password!=user.PasswordHash)
                 {
                     MessageBox.Show("Неверный пароль!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return false;
@@ -72,59 +72,6 @@ namespace ApartmentChain.Pages
                     {
                         NavigationService.Navigate(new MainPage());
                     }
-                }
-                return true;
-            }
-        }
-
-        public static string HashPassword(string password)
-        {
-            byte[] salt = new byte[16];
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                rng.GetBytes(salt);
-            }
-
-            using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000))
-            {
-                byte[] hash = pbkdf2.GetBytes(20);
-                byte[] hashBytes = new byte[36];
-                Array.Copy(salt, 0, hashBytes, 0, 16);
-                Array.Copy(hash, 0, hashBytes, 16, 20);
-
-                return Convert.ToBase64String(hashBytes);
-            }
-        }
-
-        public static bool VerifyPassword(string enteredPassword, string storedHash)
-        {
-            if (string.IsNullOrEmpty(storedHash))
-                return false;
-
-            byte[] hashBytes;
-
-            try
-            {
-                hashBytes = Convert.FromBase64String(storedHash);
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
-
-            byte[] salt = new byte[16];
-            Array.Copy(hashBytes, 0, salt, 0, 16);
-
-            byte[] storedHashBytes = new byte[20];
-            Array.Copy(hashBytes, 16, storedHashBytes, 0, 20);
-
-            using (var pbkdf2 = new Rfc2898DeriveBytes(enteredPassword, salt, 10000))
-            {
-                byte[] hash = pbkdf2.GetBytes(20);
-                for (int i = 0; i < 20; i++)
-                {
-                    if (hash[i] != storedHashBytes[i])
-                        return false;
                 }
                 return true;
             }

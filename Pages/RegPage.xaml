@@ -5,8 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ApartmentChain.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="800"
-      Title="Регистрация">
+      d:DesignHeight="550" d:DesignWidth="800" Title="">
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
         <Grid.RowDefinitions>
@@ -18,6 +17,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Name="RowDefinitionEight"/>
             <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
 
@@ -26,7 +26,10 @@
             <ColumnDefinition Width="400"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Регистрация" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource TextBlockStyle}" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Name="RegHeadText" Text="Регистрация" FontWeight="Bold" Visibility="Visible" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Name="EditHeadText" Text="Редактирование" FontWeight="Bold" Visibility="Collapsed" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
 
         <TextBlock Text="Имя" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
         <TextBlock Text="Фамилия" Grid.Row="2" Grid.Column="0" Style="{ StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
@@ -35,17 +38,30 @@
         <TextBlock Text="Подтверждение пароля" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
         <TextBlock Text="Дата рождения" Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
         <TextBlock Text="Номер телефона" Grid.Row="7" Grid.Column="0" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
+        <TextBlock Name="RolesTextBox" Text="Роль пользователя" Grid.Row="8" Grid.Column="0" Visibility="Collapsed" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
 
         <TextBox Name="NameTextBox" ToolTip="Введите имя" Grid.Row="1" Grid.Column="1" Text="{Binding Name}"  Style="{StaticResource TextBoxStyle}"/>
         <TextBox Name="SurnameTextBox" ToolTip="Введите фамилию" Grid.Row="2" Grid.Column="1" Text="{Binding Surename}" Style="{StaticResource TextBoxStyle}"/>
         <TextBox Name="LoginTextBox" ToolTip="Введите логин" Grid.Row="3" Grid.Column="1" Text="{Binding Login}" Style="{StaticResource TextBoxStyle}"/>
-        <PasswordBox Name="PasswordBox" ToolTip="Введите пароль" Grid.Row="4" Grid.Column="1" Style="{StaticResource PasswordBoxStyle}"/>
-        <PasswordBox Name="ConfirmPasswordBox" ToolTip="Подтвердите пароль" Grid.Row="5" Grid.Column="1" Style="{StaticResource PasswordBoxStyle}"/>
-        <DatePicker Name="BirthdayDatePicker" Grid.Row="6" ToolTip="Введите электронную почту" Grid.Column="1" Style="{StaticResource DatePickerStyle}"/>
-        <TextBox Name="PhoneNumberTextBox" ToolTip="Введите номер телефона" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1">
+            <PasswordBox x:Name="PasswordBox" ToolTip="Введите пароль" PasswordChanged="PasswordBox_PasswordChanged" Style="{StaticResource PasswordBoxStyle}"/>
+            <TextBox x:Name="PasswordTextBox" Visibility="Collapsed" TextChanged="PasswordTextBox_TextChanged" Text="{Binding PasswordHash}"  Style="{StaticResource TextBoxStyle}"/>
+            <CheckBox x:Name="ShowPasswordCheckBox" Content="Показать пароль" VerticalContentAlignment="Center" Margin="10,0" Checked="ShowPasswordCheckBox_Checked" Unchecked="ShowPasswordCheckBox_Unchecked"/>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" Grid.Row="5" Grid.Column="1">
+            <PasswordBox x:Name="ConfirmPasswordBox" ToolTip="Подтвердите пароль" PasswordChanged="ConfirmPasswordBox_PasswordChanged" Style="{StaticResource PasswordBoxStyle}"/>
+            <TextBox x:Name="ConfirmPasswordTextBox" Visibility="Collapsed" TextChanged="ConfirmPasswordTextBox_TextChanged" Text="{Binding PasswordHash}" Style="{StaticResource TextBoxStyle}"/>
+        </StackPanel>
+        <DatePicker Name="BirthdayDatePicker" Grid.Row="6" ToolTip="Выберите дату рождения" Grid.Column="1" SelectedDate="{Binding Birthday}" Style="{StaticResource DatePickerStyle}"/>
+        <TextBox Name="PhoneNumberTextBox" ToolTip="Введите номер телефона" Grid.Row="7" Grid.Column="1" Text="{Binding PhoneNumber}" Style="{StaticResource TextBoxStyle}"/>
+        <ComboBox Name="RolesComboBox" ToolTip="Выберите роль" Grid.Row="8" Grid.Column="1" Width="200" HorizontalAlignment="Left" Height="40" FontSize="14" VerticalContentAlignment="Center" FontFamily="Segoe UI" Visibility="Collapsed"/>
 
-        <Button Name="CancelButton" Content="Отмена" ToolTip="Нажмите чтобы вернуться назад" Grid.Row="8" Grid.Column="1" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Margin="10,0" Click="CancelButton_Click"/>
-        <Button Name="RegButton" Content="Регистрация" ToolTip="Нажмите чтобы зарегистрироваться" Grid.Row="8" Grid.Column="0" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Right" Margin="10,0" Click="RegButton_Click"/>
+        <Button Name="CancelButton" Content="Отмена" ToolTip="Нажмите чтобы вернуться назад" Grid.Row="9" Grid.Column="1" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Margin="10,0" Click="CancelButton_Click"/>
+
+        <StackPanel Grid.Row="9" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0">
+            <Button Name="RegButton" Content="Регистрация" ToolTip="Нажмите чтобы зарегистрироваться" Visibility="Visible" Style="{StaticResource ButtonStyle}" Click="RegButton_Click"/>
+            <Button Name="EditButton" Content="Редактировать" ToolTip="Нажмите чтобы зарегистрироваться" Visibility="Collapsed" Style="{StaticResource ButtonStyle}" Click="EditButton_Click"/>
+        </StackPanel>
 
     </Grid>
 </Page>
