@@ -17,23 +17,19 @@ namespace ApartmentChain.Pages
         public RegPage(Users user)
         {
             InitializeComponent();
-            _currentUser = user;
+
+            if (user == null)
+            {
+                _currentUser = new Users();
+            }
+            else
+            {
+                _currentUser = user;
+            }
+
             DataContext = _currentUser;
-            LoadPassword(_currentUser.PasswordHash);
-            LoadRoles();
             RolesComboBox.SelectedValue = _currentUser.RoleID;
             UpdateUI();
-        }
-
-        private void LoadRoles()
-        {
-            using (var db = new Entities())
-            {
-                _rolesList = db.Roles.ToList();
-            }
-            RolesComboBox.ItemsSource = _rolesList;
-            RolesComboBox.DisplayMemberPath = "Role";
-            RolesComboBox.SelectedValuePath = "ID";
         }
 
         private void UpdateUI()
@@ -47,6 +43,10 @@ namespace ApartmentChain.Pages
                 {
                     isAdmin = true;
                 }
+                _rolesList = db.Roles.ToList();
+                RolesComboBox.ItemsSource = _rolesList;
+                RolesComboBox.DisplayMemberPath = "Role";
+                RolesComboBox.SelectedValuePath = "ID";
             }
 
             if (isAdmin)
@@ -60,7 +60,7 @@ namespace ApartmentChain.Pages
                 RowDefinitionEight.Height = new GridLength(50);
                 Title = "Страница редактирования пользователя";
 
-                if (_currentUser != null && _currentUser.RoleID != 0)
+                if (_currentUser != null)
                 {
                     RolesComboBox.SelectedValue = _currentUser.RoleID;
                 }
@@ -77,36 +77,13 @@ namespace ApartmentChain.Pages
                 Title = "Страница регистрации пользователя";
             }
         }
-        private void RegButton_Click(object sender, RoutedEventArgs e)
-        {
-            Registration(
-                NameTextBox.Text,
-                SurnameTextBox.Text,
-                LoginTextBox.Text,
-                PasswordBox.Password,
-                ConfirmPasswordBox.Password,
-                BirthdayDatePicker.SelectedDate?.ToString("dd-MM-yyyy"),
-                PhoneNumberTextBox.Text);
-        }
-        private void EditButton_Click(object sender, RoutedEventArgs e)
-        {
-            Edit(
-                _currentUser.ID,
-                NameTextBox.Text,
-                SurnameTextBox.Text,
-                LoginTextBox.Text,
-                PasswordBox.Password,
-                ConfirmPasswordBox.Password,
-                BirthdayDatePicker.SelectedDate?.ToString("dd-MM-yyyy"),
-                PhoneNumberTextBox.Text);
-        }
 
         public bool Registration(string name, string surname, string login, string password, string confirmPassword, string birthday, string phone)
         {
             DateTime? birthdayDate = null;
             if (!string.IsNullOrWhiteSpace(birthday))
             {
-                if (DateTime.TryParseExact(birthday, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
+                if (DateTime.TryParseExact(birthday, "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
                 {
                     birthdayDate = parsedDate;
                     DateTime today = DateTime.Today;
@@ -201,7 +178,7 @@ namespace ApartmentChain.Pages
             DateTime? birthdayDate = null;
             if (!string.IsNullOrWhiteSpace(birthday))
             {
-                if (DateTime.TryParseExact(birthday, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
+                if (DateTime.TryParseExact(birthday, "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
                 {
                     birthdayDate = parsedDate;
                     DateTime today = DateTime.Today;
@@ -306,7 +283,31 @@ namespace ApartmentChain.Pages
                 return true;
             }
         }
-       
+
+        private void RegButton_Click(object sender, RoutedEventArgs e)
+        {
+            Registration(
+                NameTextBox.Text,
+                SurnameTextBox.Text,
+                LoginTextBox.Text,
+                PasswordBox.Password,
+                ConfirmPasswordBox.Password,
+                BirthdayDatePicker.SelectedDate?.ToString("dd.MM.yyyy"),
+                PhoneNumberTextBox.Text);
+        }
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            Edit(
+                _currentUser.ID,
+                NameTextBox.Text,
+                SurnameTextBox.Text,
+                LoginTextBox.Text,
+                PasswordBox.Password,
+                ConfirmPasswordBox.Password,
+                BirthdayDatePicker.SelectedDate?.ToString("dd.MM.yyyy"),
+                PhoneNumberTextBox.Text);
+        }
+
         private void Clear()
         {
             NameTextBox.Clear();
@@ -322,63 +323,21 @@ namespace ApartmentChain.Pages
             Clear();
         }
 
-        private void ShowPasswordCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            PasswordTextBox.Text = PasswordBox.Password;
-            ConfirmPasswordTextBox.Text = ConfirmPasswordBox.Password;
-            PasswordTextBox.Visibility = Visibility.Visible;
-            ConfirmPasswordTextBox.Visibility = Visibility.Visible;
-            PasswordBox.Visibility = Visibility.Collapsed;
-            ConfirmPasswordBox.Visibility = Visibility.Collapsed;
-        }
-
-        private void ShowPasswordCheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            PasswordBox.Password = PasswordTextBox.Text;
-            ConfirmPasswordBox.Password = ConfirmPasswordTextBox.Text;
-            PasswordBox.Visibility = Visibility.Visible;
-            ConfirmPasswordBox.Visibility = Visibility.Visible;
-            PasswordTextBox.Visibility = Visibility.Collapsed;
-            ConfirmPasswordTextBox.Visibility = Visibility.Collapsed;
-        }
-
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (ShowPasswordCheckBox.IsChecked == true)
             {
-                PasswordTextBox.Text = PasswordBox.Password;
+                PasswordTextBlock.Text = PasswordBox.Password;
             }
         }
-
-        private void PasswordTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void ShowPasswordCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            if (ShowPasswordCheckBox.IsChecked == true)
-            {
-                PasswordBox.Password = PasswordTextBox.Text;
-            }
+            PasswordTextBlock.Visibility = Visibility.Visible;
+            PasswordTextBlock.Text = PasswordBox.Password;
         }
-
-        private void ConfirmPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        private void ShowPasswordCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (ShowPasswordCheckBox.IsChecked == true)
-            {
-                ConfirmPasswordTextBox.Text = ConfirmPasswordBox.Password;
-            }
-        }
-
-        private void ConfirmPasswordTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (ShowPasswordCheckBox.IsChecked == true)
-            {
-                ConfirmPasswordBox.Password = ConfirmPasswordTextBox.Text;
-            }
-        }
-        private void LoadPassword(string passwordFromDb)
-        {
-            PasswordBox.Password = passwordFromDb;
-            PasswordTextBox.Text = passwordFromDb;
-            ConfirmPasswordBox.Password = passwordFromDb;
-            ConfirmPasswordTextBox.Text = passwordFromDb;
+            PasswordTextBlock.Visibility =Visibility.Collapsed;
         }
     }
 }

@@ -60,7 +60,7 @@ namespace ApartmentChain.Pages
                 Session.CurrentUserLogin = user.Login;
                 ((MainWindow)Application.Current.MainWindow).UpdateUI();
 
-                MessageBox.Show("Пользователь успешно найден!", "Успех");
+                MessageBox.Show("Добро пожаловать, " + user.Surename + " " + user.Name, "Успех");
 
                 if (NavigationService != null)
                 {
@@ -76,19 +76,16 @@ namespace ApartmentChain.Pages
                 return true;
             }
         }
-
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService != null) NavigationService.Navigate(new RegPage(null));
             Clear();
         }
-
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService.CanGoBack) NavigationService.GoBack();
             Clear();
         }
-
         private void Clear()
         {
             LoginTextBox.Clear();

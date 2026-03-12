@@ -43,15 +43,17 @@
         <TextBox Name="NameTextBox" ToolTip="Введите имя" Grid.Row="1" Grid.Column="1" Text="{Binding Name}"  Style="{StaticResource TextBoxStyle}"/>
         <TextBox Name="SurnameTextBox" ToolTip="Введите фамилию" Grid.Row="2" Grid.Column="1" Text="{Binding Surename}" Style="{StaticResource TextBoxStyle}"/>
         <TextBox Name="LoginTextBox" ToolTip="Введите логин" Grid.Row="3" Grid.Column="1" Text="{Binding Login}" Style="{StaticResource TextBoxStyle}"/>
+       
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1">
             <PasswordBox x:Name="PasswordBox" ToolTip="Введите пароль" PasswordChanged="PasswordBox_PasswordChanged" Style="{StaticResource PasswordBoxStyle}"/>
-            <TextBox x:Name="PasswordTextBox" Visibility="Collapsed" TextChanged="PasswordTextBox_TextChanged" Text="{Binding PasswordHash}"  Style="{StaticResource TextBoxStyle}"/>
             <CheckBox x:Name="ShowPasswordCheckBox" Content="Показать пароль" VerticalContentAlignment="Center" Margin="10,0" Checked="ShowPasswordCheckBox_Checked" Unchecked="ShowPasswordCheckBox_Unchecked"/>
         </StackPanel>
-        <StackPanel VerticalAlignment="Center" Grid.Row="5" Grid.Column="1">
-            <PasswordBox x:Name="ConfirmPasswordBox" ToolTip="Подтвердите пароль" PasswordChanged="ConfirmPasswordBox_PasswordChanged" Style="{StaticResource PasswordBoxStyle}"/>
-            <TextBox x:Name="ConfirmPasswordTextBox" Visibility="Collapsed" TextChanged="ConfirmPasswordTextBox_TextChanged" Text="{Binding PasswordHash}" Style="{StaticResource TextBoxStyle}"/>
+        
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="5" Grid.Column="1">
+            <PasswordBox x:Name="ConfirmPasswordBox" ToolTip="Подтвердите пароль" Style="{StaticResource PasswordBoxStyle}"/>
+            <TextBlock Name="PasswordTextBlock" Margin="10,0" FontWeight="Bold" Visibility="Collapsed" Style="{StaticResource TextBlockStyle}"/>
         </StackPanel>
+        
         <DatePicker Name="BirthdayDatePicker" Grid.Row="6" ToolTip="Выберите дату рождения" Grid.Column="1" SelectedDate="{Binding Birthday}" Style="{StaticResource DatePickerStyle}"/>
         <TextBox Name="PhoneNumberTextBox" ToolTip="Введите номер телефона" Grid.Row="7" Grid.Column="1" Text="{Binding PhoneNumber}" Style="{StaticResource TextBoxStyle}"/>
         <ComboBox Name="RolesComboBox" ToolTip="Выберите роль" Grid.Row="8" Grid.Column="1" Width="200" HorizontalAlignment="Left" Height="40" FontSize="14" VerticalContentAlignment="Center" FontFamily="Segoe UI" Visibility="Collapsed"/>
