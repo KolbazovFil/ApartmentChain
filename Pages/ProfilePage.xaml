@@ -6,9 +6,33 @@
       xmlns:local="clr-namespace:ApartmentChain.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProfilePage">
+      Title="Страница профиля">
 
-    <Grid>
-        <Image Source="/Resources/User.png" Stretch="UniformToFill"/>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="260"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Профиль" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Text="Выйти из профиля" ToolTip="Нажмите чтобы выйти из профиля" Grid.Row="0" Grid.Column="2" Foreground="OrangeRed" Cursor="Hand"  MouseDown="Exit_MouseLeftButtonDown" Style="{StaticResource TextBlockStyle}"/>
+
+        <Button Name="EditProfileButton" ToolTip="Нажмите чтобы отредактировать свой профиль" Grid.Row="1" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="EditProfileButton_Click">
+            <TextBlock Text="Редактировать профиль" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
+        </Button>
+
+        <Button Name="EditBookingButton" ToolTip="Нажмите чтобы перейти к своим бронированиям" Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="EditBookingButton_Click">
+            <TextBlock Text="Управление бронированием" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
+        </Button>
+
+        <Button Name="DeleteProfileButton" ToolTip="Нажмите чтобы удалить свой профиль" Grid.Row="1" Grid.Column="3" Style="{StaticResource ButtonStyle}" Click="DeleteProfileButton_Click">
+            <TextBlock Text="Удаление своего профиля" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
+        </Button>
     </Grid>
 </Page>

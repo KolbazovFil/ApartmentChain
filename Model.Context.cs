@@ -21,13 +21,11 @@ namespace ApartmentChain
         }
 
         private static Entities _context;
-
         public static Entities GetContext()
         {
             if (_context == null) _context = new Entities();
             return _context;
         }
-    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -48,7 +46,6 @@ namespace ApartmentChain
         public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Streets> Streets { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }
 }

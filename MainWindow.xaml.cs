@@ -1,19 +1,10 @@
 ﻿using ApartmentChain.Pages;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ApartmentChain
 {
@@ -25,7 +16,6 @@ namespace ApartmentChain
 
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             InitializeComponent();
@@ -36,10 +26,12 @@ namespace ApartmentChain
             if (!(e.Content is Page page)) return;
             this.Title = page.Title;
         }
+
         private void LogoPhoto_MouseLeftButtonUp(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new MainPage());
         }
+
         private void AuthButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new AuthPage());
@@ -66,17 +58,8 @@ namespace ApartmentChain
 
         public void UpdateUI()
         {
-            if (Session.IsAuthorized)
-            {
-                AuthButton.Visibility = Visibility.Collapsed;
-                ProfilePanel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                AuthButton.Visibility = Visibility.Visible;
-                ProfilePanel.Visibility = Visibility.Collapsed;
-            }
+            AuthButton.Visibility = Session.IsAuthorized ? Visibility.Collapsed : Visibility.Visible;
+            ProfilePanel.Visibility = Session.IsAuthorized ? Visibility.Visible : Visibility.Collapsed;
         }
-
     }
 }

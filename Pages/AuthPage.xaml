@@ -7,8 +7,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Авторизация">
-
-    <Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
@@ -39,9 +39,10 @@
                 <PasswordBox Name="PasswordBox" Grid.Column="1" ToolTip="Введите пароль" Style="{StaticResource PasswordBoxStyle}"/>
             </Grid>
 
-            <Button Name="RegButton" ToolTip="Нажмите чтобы зарегистрироваться" Content="Регистрация" Grid.Row="4" Style="{StaticResource ButtonStyle}" Click="RegButton_Click"/>
             <Button Name="EnterButton" ToolTip="Нажмите чтобы войти" Content="Вход" Grid.Row="3" Style="{StaticResource ButtonStyle}" Click="EnterButton_Click"/>
+            <Button Name="RegButton" ToolTip="Нажмите чтобы зарегистрироваться" Content="Регистрация" Grid.Row="4" Style="{StaticResource ButtonStyle}" Click="RegButton_Click"/>
             <Button Name="CancelButton" ToolTip="Нажмите чтобы отменить" Content="Отмена" Grid.Row="5" Style="{StaticResource ButtonStyle}" Click="CancelButton_Click"/>
         </Grid>
     </Grid>
+    </ScrollViewer>
 </Page>

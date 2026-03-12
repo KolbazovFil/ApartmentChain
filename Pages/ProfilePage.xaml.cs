@@ -29,66 +29,59 @@ namespace ApartmentChain.Pages
                 _currentUser = new Users();
 
             DataContext = _currentUser;
-
-            SetEditMode(false);
-        }
-
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (NavigationService.CanGoBack) NavigationService.GoBack();
-        }
-
-        private void EditButton_Click(object sender, RoutedEventArgs e)
-        {
-            SetEditMode(true);
-        }
-
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            StringBuilder errors = new StringBuilder();
-
-            if (string.IsNullOrWhiteSpace(_currentUser.Login)) errors.AppendLine("Поле для логина не может быть пустым");
-            //if (string.IsNullOrWhiteSpace(_currentUser.FullName)) errors.AppendLine("Поле для ФИО не может быть пустым");
-            //if (!string.IsNullOrWhiteSpace(_currentUser.Email) && !Regex.IsMatch(_currentUser.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-            errors.AppendLine("Неверный формат электронной почты, пример: \"empty@business.com\"");
-
-            if (errors.Length > 0)
-            {
-                MessageBox.Show(errors.ToString());
-                return;
-            }
-
-            try
-            {
-                Entities.GetContext().SaveChanges();
-                MessageBox.Show("Изменения успешно сохранены!", "Ура!", MessageBoxButton.OK, MessageBoxImage.Information);
-                SetEditMode(false);
-                if (NavigationService != null)
-                    NavigationService.Navigate(new MainPage());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
         }
 
         private void Exit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Session.IsAuthorized = false;
             Session.CurrentUserLogin = null;
+            (Application.Current.MainWindow as MainWindow)?.UpdateUI();
 
             if (NavigationService != null) NavigationService.Navigate(new MainPage());
         }
 
-        private void SetEditMode(bool isEditable)
+        private void EditProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            //LoginTextBox.IsReadOnly = !isEditable;
-            //FIOTextBox.IsReadOnly = !isEditable;
-            //EmailTextBox.IsReadOnly = !isEditable;
-            //PhoneNumberTextBox.IsReadOnly = !isEditable;
 
-            //SaveButton.Visibility = isEditable ? Visibility.Visible : Visibility.Collapsed;
-            //EditButton.Visibility = isEditable ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void EditBookingButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            string currentUserLogin = Session.CurrentUserLogin;
+            if (!string.IsNullOrEmpty(currentUserLogin))
+            {
+                var result = MessageBox.Show("Вы действительно хотите удалить свой профиль?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        var context = Entities.GetContext();
+                        var user = context.Users.FirstOrDefault(u => u.Login == currentUserLogin);
+
+                        if (user != null)
+                        {
+                            context.Users.Remove(user);
+                            context.SaveChanges();
+                            MessageBox.Show("Профиль успешно удалён.", "Удаление профиля", MessageBoxButton.OK, MessageBoxImage.Information);
+                            Session.IsAuthorized = false;
+                            Session.CurrentUserLogin = null;
+                            (Application.Current.MainWindow as MainWindow)?.UpdateUI();
+                            if (NavigationService != null) NavigationService.Navigate(new MainPage());
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при удалении профиля: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+            }
         }
     }
 }

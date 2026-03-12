@@ -50,7 +50,7 @@ namespace ApartmentChain.Pages
                     return false;
                 }
 
-                if (password!=user.PasswordHash)
+                if (password != user.PasswordHash)
                 {
                     MessageBox.Show("Неверный пароль!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                     return false;

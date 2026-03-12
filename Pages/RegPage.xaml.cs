@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace ApartmentChain.Pages
@@ -19,13 +20,12 @@ namespace ApartmentChain.Pages
             InitializeComponent();
 
             if (user == null)
-            {
-                _currentUser = new Users();
-            }
+                _currentUser = new Users()
+                {
+                    Birthday = DateTime.Today
+                };
             else
-            {
                 _currentUser = user;
-            }
 
             DataContext = _currentUser;
             RolesComboBox.SelectedValue = _currentUser.RoleID;
@@ -47,6 +47,7 @@ namespace ApartmentChain.Pages
                 RolesComboBox.ItemsSource = _rolesList;
                 RolesComboBox.DisplayMemberPath = "Role";
                 RolesComboBox.SelectedValuePath = "ID";
+                ValidPasswordTextBlock.Text = _currentUser.PasswordHash;
             }
 
             if (isAdmin)
@@ -59,6 +60,8 @@ namespace ApartmentChain.Pages
                 RolesTextBox.Visibility = Visibility.Visible;
                 RowDefinitionEight.Height = new GridLength(50);
                 Title = "Страница редактирования пользователя";
+                ValidPasswordTextBlock.Visibility = Visibility.Visible;
+                ValidPswdTxb.Visibility = Visibility.Visible;
 
                 if (_currentUser != null)
                 {
@@ -75,6 +78,9 @@ namespace ApartmentChain.Pages
                 RolesTextBox.Visibility = Visibility.Collapsed;
                 RowDefinitionEight.Height = GridLength.Auto;
                 Title = "Страница регистрации пользователя";
+                ValidPasswordTextBlock.Visibility = Visibility.Collapsed;
+                ValidPswdTxb.Visibility = Visibility.Collapsed;
+
             }
         }
 
@@ -96,7 +102,7 @@ namespace ApartmentChain.Pages
                 }
                 else
                 {
-                    MessageBox.Show("Некорректный формат даты", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Некорректный формат даты, пример: 29.06.1995", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }
             }
@@ -131,7 +137,7 @@ namespace ApartmentChain.Pages
 
                 if (!Regex.IsMatch(cleanedPhone, @"^7\d{10}$"))
                 {
-                    errors.AppendLine("Неверный формат номера телефона, пример: \"+71234567890\"");
+                    errors.AppendLine("Неверный формат номера телефона, пример: \"+71234567890\", или с 8");
                 }
                 else
                 {
@@ -235,7 +241,7 @@ namespace ApartmentChain.Pages
 
                 if (!Regex.IsMatch(cleanedPhone, @"^7\d{10}$"))
                 {
-                    errors.AppendLine("Неверный формат номера телефона, пример: \"+71234567890\"");
+                    errors.AppendLine("Неверный формат номера телефона, пример: \"+71234567890\" или с 8");
                 }
                 else
                 {

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ApartmentChain.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Страница администратора">
+      Title="Страница администратора" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid Margin="10" Background="Transparent">
         <Grid.RowDefinitions>

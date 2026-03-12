@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Name="MenuStackPanel" Orientation="Horizontal">
-            <Image Name="LogoPhoto" Cursor="Hand" Source="/Resources/Logo.png" MouseLeftButtonUp="LogoPhoto_MouseLeftButtonUp"/>
+            <Image Name="LogoPhoto" ToolTip="Нажмите чтобы вернуться на главную страницу" Cursor="Hand" Source="/Resources/Logo.png" MouseLeftButtonUp="LogoPhoto_MouseLeftButtonUp"/>
 
             <Menu Style="{StaticResource MenuStyle}">
                 <MenuItem Header="Города" ToolTip="Выберите город" Style="{StaticResource MenuItemStyle}">
