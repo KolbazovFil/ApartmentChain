@@ -179,7 +179,7 @@ namespace ApartmentChain.Pages
                 return true;
             }
         }
-        public bool Edit(int userId, string name, string surname, string login, string password, string confirmPassword, string birthday, string phone)
+        public bool Edit(int userId, string name, string surname, string login, string password, string confirmPassword, string birthday, string phone, string role)
         {
             DateTime? birthdayDate = null;
             if (!string.IsNullOrWhiteSpace(birthday))
@@ -280,6 +280,7 @@ namespace ApartmentChain.Pages
                 user.PasswordHash = passwordToSave;
                 user.Birthday = birthdayDate ?? DateTime.MinValue;
                 user.PhoneNumber = phone;
+                user.RoleID = (int)RolesComboBox.SelectedValue;
 
                 db.SaveChanges();
 
@@ -311,7 +312,8 @@ namespace ApartmentChain.Pages
                 PasswordBox.Password,
                 ConfirmPasswordBox.Password,
                 BirthdayDatePicker.SelectedDate?.ToString("dd.MM.yyyy"),
-                PhoneNumberTextBox.Text);
+                PhoneNumberTextBox.Text,
+                RolesComboBox.Text);
         }
 
         private void Clear()

@@ -59,26 +59,28 @@ namespace ApartmentChain.Pages
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    try
-                    {
-                        var context = Entities.GetContext();
-                        var user = context.Users.FirstOrDefault(u => u.Login == currentUserLogin);
 
-                        if (user != null)
-                        {
-                            context.Users.Remove(user);
-                            context.SaveChanges();
-                            MessageBox.Show("Профиль успешно удалён.", "Удаление профиля", MessageBoxButton.OK, MessageBoxImage.Information);
-                            Session.IsAuthorized = false;
-                            Session.CurrentUserLogin = null;
-                            (Application.Current.MainWindow as MainWindow)?.UpdateUI();
-                            if (NavigationService != null) NavigationService.Navigate(new MainPage());
-                        }
-                    }
-                    catch (Exception ex)
+                    var context = Entities.GetContext();
+                    var user = context.Users.FirstOrDefault(u => u.Login == currentUserLogin);
+
+                    if (user != null)
                     {
-                        MessageBox.Show($"Ошибка при удалении профиля: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
+                        var bookings = context.Booking.Where(b => b.CustomersID == user.ID).ToList();
+                        context.Booking.RemoveRange(bookings);
+
+                        var reviews = context.Reviews.Where(r => r.UserID == user.ID).ToList();
+                        context.Reviews.RemoveRange(reviews);
+
+                        var payments = context.Payments.Where(p => p.Booking != null && p.Booking.CustomersID == user.ID).ToList();
+                        context.Payments.RemoveRange(payments);
+
+                        context.Users.Remove(user);
+                        context.SaveChanges();
+                        MessageBox.Show("Профиль успешно удалён.", "Удаление профиля", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Session.IsAuthorized = false;
+                        Session.CurrentUserLogin = null;
+                        (Application.Current.MainWindow as MainWindow)?.UpdateUI();
+                        if (NavigationService != null) NavigationService.Navigate(new MainPage());
                     }
                 }
             }

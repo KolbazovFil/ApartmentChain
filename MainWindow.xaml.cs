@@ -44,8 +44,8 @@ namespace ApartmentChain
                 MessageBox.Show("Вы не авторизованы", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            var currentUser = Entities.GetContext().Users.FirstOrDefault(u => u.Login == Session.CurrentUserLogin);
+            var db = Entities.GetContext();
+            var currentUser = db.Users.FirstOrDefault(u => u.Login == Session.CurrentUserLogin);
 
             if (currentUser == null)
             {

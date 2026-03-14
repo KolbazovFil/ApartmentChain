@@ -44,6 +44,7 @@
         <TextBlock Text="Бронирования" Grid.Row="2" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
         <DataGrid x:Name="BookingsDataGrid" Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
                 <DataGridTextColumn Header="Апартаменты" Binding="{Binding ApartmentID}"/>
                 <DataGridTextColumn Header="Заезд" Binding="{Binding Arrival}"/>
                 <DataGridTextColumn Header="Выезд" Binding="{Binding Departure}"/>
