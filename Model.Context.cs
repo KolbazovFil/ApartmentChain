@@ -27,7 +27,7 @@ namespace ApartmentChain
             if (_context == null) _context = new Entities();
             return _context;
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

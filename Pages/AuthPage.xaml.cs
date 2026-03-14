@@ -62,20 +62,11 @@ namespace ApartmentChain.Pages
 
                 MessageBox.Show("Добро пожаловать, " + user.Surename + " " + user.Name, "Успех");
 
-                if (NavigationService != null)
-                {
-                    if (user.RoleID == 1)
-                    {
-                        NavigationService.Navigate(new MainPageAdmin());
-                    }
-                    else
-                    {
-                        NavigationService.Navigate(new MainPage());
-                    }
-                }
-                return true;
+                NavigationService.Navigate(new MainPage());
             }
+            return true;
         }
+
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService != null) NavigationService.Navigate(new RegPage(null));

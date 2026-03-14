@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ApartmentChain.Pages
 {
@@ -29,6 +19,24 @@ namespace ApartmentChain.Pages
                 _currentUser = new Users();
 
             DataContext = _currentUser;
+            UpdateUI();
+        }
+
+        private void UpdateUI()
+        {
+            var db = new Entities();
+            var user = db.Users.FirstOrDefault(u => u.Login == Session.CurrentUserLogin);
+
+            if (user != null && user.RoleID == 1)
+            {
+                MainPageAdminButton.Visibility = Visibility.Visible;
+                AddApartmentButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MainPageAdminButton.Visibility = Visibility.Collapsed;
+                AddApartmentButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Exit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -42,12 +50,12 @@ namespace ApartmentChain.Pages
 
         private void EditProfileButton_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new RegPage((sender as Button).DataContext as Users));
         }
 
         private void EditBookingButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (NavigationService != null) NavigationService.Navigate(new BookingManagmentPage());
         }
 
         private void DeleteProfileButton_Click(object sender, RoutedEventArgs e)
@@ -84,6 +92,16 @@ namespace ApartmentChain.Pages
                     }
                 }
             }
+        }
+
+        private void MainPageAdminButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService != null) NavigationService.Navigate(new MainPageAdmin());
+        }
+
+        private void AddApartmentButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService != null) NavigationService.Navigate(new AddApartmentPage());
         }
     }
 }

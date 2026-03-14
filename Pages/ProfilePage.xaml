@@ -5,19 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ApartmentChain.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="720"
       Title="Страница профиля">
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="260"/>
-            <ColumnDefinition Width="280"/>
-            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="240"/>
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
         <TextBlock Text="Профиль" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextBlockStyle}"/>
@@ -34,5 +35,15 @@
         <Button Name="DeleteProfileButton" ToolTip="Нажмите чтобы удалить свой профиль" Grid.Row="1" Grid.Column="3" Style="{StaticResource ButtonStyle}" Click="DeleteProfileButton_Click">
             <TextBlock Text="Удаление своего профиля" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
         </Button>
+
+        <Button Name="MainPageAdminButton" ToolTip="Нажмите чтобы перейти на страницу администратора" Grid.Row="2" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="MainPageAdminButton_Click">
+            <TextBlock Text="Пользователи и бронирования" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
+        </Button>
+
+        <Button Name="AddApartmentButton" ToolTip="Нажмите чтобы добавить апартаменты" Grid.Row="2" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="AddApartmentButton_Click">
+            <TextBlock Text="Добавить апартаменты" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
+        </Button>
+
+
     </Grid>
 </Page>

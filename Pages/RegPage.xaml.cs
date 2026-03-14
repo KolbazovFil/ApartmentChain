@@ -68,6 +68,19 @@ namespace ApartmentChain.Pages
                     RolesComboBox.SelectedValue = _currentUser.RoleID;
                 }
             }
+            else if (_currentUser != null)
+            {
+                RegButton.Visibility = Visibility.Collapsed;
+                EditButton.Visibility = Visibility.Visible;
+                RegHeadText.Visibility = Visibility.Collapsed;
+                EditHeadText.Visibility = Visibility.Visible;
+                RolesComboBox.Visibility = Visibility.Collapsed;
+                RolesTextBox.Visibility = Visibility.Collapsed;
+                RowDefinitionEight.Height = GridLength.Auto;
+                Title = "Страница редактирования пользователя";
+                ValidPasswordTextBlock.Visibility = Visibility.Visible;
+                ValidPswdTxb.Visibility = Visibility.Visible;
+            }
             else
             {
                 RegButton.Visibility = Visibility.Visible;
@@ -280,13 +293,23 @@ namespace ApartmentChain.Pages
                 user.PasswordHash = passwordToSave;
                 user.Birthday = birthdayDate ?? DateTime.MinValue;
                 user.PhoneNumber = phone;
-                user.RoleID = (int)RolesComboBox.SelectedValue;
+                if (user != null && user.RoleID == 1)
+                    user.RoleID = (int)RolesComboBox.SelectedValue;
+                else
+                    user.RoleID = 2;
 
                 db.SaveChanges();
 
                 MessageBox.Show("Изменения успешно сохранены!");
-                if (NavigationService != null) NavigationService.Navigate(new MainPageAdmin());
-                Clear();
+                if (user != null && user.RoleID == 1)
+                {
+                    if (NavigationService != null) NavigationService.Navigate(new MainPageAdmin());
+                }
+                else
+                {
+                    if (NavigationService != null) NavigationService.Navigate(new MainPage());
+                    Clear();
+                }
                 return true;
             }
         }
@@ -330,7 +353,6 @@ namespace ApartmentChain.Pages
             NavigationService.GoBack();
             Clear();
         }
-
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (ShowPasswordCheckBox.IsChecked == true)

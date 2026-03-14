@@ -28,7 +28,6 @@ namespace ApartmentChain.Pages
                 }
             }
         }
-
         private void LoadData()
         {
             var context = Entities.GetContext();
@@ -45,18 +44,15 @@ namespace ApartmentChain.Pages
         {
             var button = sender as Button;
             var selectedUser = button?.DataContext as Users;
-            var result = MessageBox.Show($"Удалить пользователя {selectedUser.Surename} {selectedUser.Name}?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            var selfDeleteResult = MessageBox.Show("Вы действительно хотите удалить свой профиль?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
 
             if (selectedUser == null)
             {
                 MessageBox.Show("Пользователь не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
             if (selectedUser.Login == Session.CurrentUserLogin)
             {
+                var selfDeleteResult = MessageBox.Show("Вы действительно хотите удалить свой профиль?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (selfDeleteResult == MessageBoxResult.Yes)
                 {
                     try
@@ -95,7 +91,8 @@ namespace ApartmentChain.Pages
                 }
                 return;
             }
-            else if (result == MessageBoxResult.Yes)
+            var result = MessageBox.Show($"Удалить пользователя {selectedUser.Surename} {selectedUser.Name}?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
             {
                 try
                 {

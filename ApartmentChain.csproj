@@ -113,11 +113,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AddApartmentPage.xaml.cs">
+      <DependentUpon>AddApartmentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\BookDetailsPage.xaml.cs">
       <DependentUpon>BookDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BookingManagmentPage.xaml.cs">
+      <DependentUpon>BookingManagmentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MainPageAdmin.xaml.cs">
       <DependentUpon>MainPageAdmin.xaml</DependentUpon>
@@ -162,11 +168,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AddApartmentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AuthPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\BookDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\BookingManagmentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
