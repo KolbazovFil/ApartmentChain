@@ -74,10 +74,10 @@
     <Compile Include="ApartmentAddress.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApartmentPhotos.cs">
+    <Compile Include="ApartmentName.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="ApartmentStatus.cs">
+    <Compile Include="ApartmentPhotos.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="ApartmentType.cs">
@@ -147,6 +147,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Streets.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Users.cs">
@@ -252,6 +255,15 @@
     <Resource Include="Resources\Transparent.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\User.png" />
+    <Resource Include="Resources\Admin.jpeg" />
+    <Resource Include="Resources\Plug.png" />
+    <Resource Include="Resources\user_profile.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
@@ -263,13 +275,6 @@
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\script.sql" />
-    <Resource Include="Resources\User.png" />
-    <Resource Include="Resources\Admin.jpeg" />
-    <Resource Include="Resources\Plug.png" />
-    <Resource Include="Resources\user_profile.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

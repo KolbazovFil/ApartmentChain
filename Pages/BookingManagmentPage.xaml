@@ -6,12 +6,12 @@
       xmlns:local="clr-namespace:ApartmentChain.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Страница управления бронированиями" Background="White">
+      Title="Страница управления бронированиями" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
@@ -20,24 +20,30 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
             <TextBlock Text="Фильтр по статусу:" Style="{StaticResource TextBlockStyle}"/>
-            <ComboBox x:Name="FilterStatusComboBox" Width="150" Margin="5,0,0,0" SelectionChanged="FilterStatusComboBox_SelectionChanged"/>
-            <TextBox x:Name="SearchCityTextBox" ToolTip="Поиск по городу" Margin="10,0,0,0" Style="{StaticResource TextBoxStyle}" TextChanged="SearchCityTextBox_TextChanged"/>
+            <ComboBox Name="FilterStatusComboBox" Width="150" Margin="5,0,0,0" SelectionChanged="FilterStatusComboBox_SelectionChanged"/>
+            <TextBox x:Name="SearchTextBox" ToolTip="Поиск по городу и апартаментов" Margin="10,0,0,0" Style="{StaticResource TextBoxStyle}" TextChanged="SearchTextBox_TextChanged"/>
         </StackPanel>
 
         <DataGrid x:Name="BookingsDataGrid" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="50"/>
-                <DataGridTextColumn Header="Дата заезда" Binding="{Binding Arrival}" Width="150"/>
-                <DataGridTextColumn Header="Дата выезда" Binding="{Binding Departure}" Width="150"/>
-                <DataGridTextColumn Header="Апартамент" Binding="{Binding ApartmentAddress}" Width="200"/>
-                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="120"/>
-                <DataGridTextColumn Header="Общая стоимость" Binding="{Binding TotalCost}" Width="150"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Город" Binding="{Binding Cities}"/>
+                <DataGridTextColumn Header="Апартаменты" Binding="{Binding ApartmentName}"/>
+                <DataGridTextColumn Header="Дата заезда" Binding="{Binding Arrival}"/>
+                <DataGridTextColumn Header="Дата выезда" Binding="{Binding Departure}"/>
+                <DataGridTextColumn Header="Общая стоимость" Binding="{Binding TotalCost}"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding BookingStatus}"/>
+                <DataGridTemplateColumn Header="Действия" MinWidth="300">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="Редактировать" Height="30" Width="140" Style="{StaticResource ButtonStyle}" Click="EditBooking_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="CancelBookingButton" Content="Отменить бронирование" Margin="0,0,10,0" Style="{StaticResource ButtonStyle}" Click="CancelBookingButton_Click"/>
-            <Button x:Name="EditBookingButton" Content="Редактировать" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}" Click="EditBookingButton_Click"/>
-        </StackPanel>
+        <Button x:Name="CancelButton" Grid.Row="3" Content="Отмена" ToolTip="Нажмите чтобы вернуться" Style="{StaticResource ButtonStyle}" Click="CancelButton_Click"/>
     </Grid>
 </Page>

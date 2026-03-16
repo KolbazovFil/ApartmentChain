@@ -21,13 +21,11 @@ namespace ApartmentChain
         }
 
         private static Entities _context;
-
         public static Entities GetContext()
         {
             if (_context == null) _context = new Entities();
             return _context;
         }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -35,8 +33,8 @@ namespace ApartmentChain
     
         public virtual DbSet<Apartaments> Apartaments { get; set; }
         public virtual DbSet<ApartmentAddress> ApartmentAddress { get; set; }
+        public virtual DbSet<ApartmentName> ApartmentName { get; set; }
         public virtual DbSet<ApartmentPhotos> ApartmentPhotos { get; set; }
-        public virtual DbSet<ApartmentStatus> ApartmentStatus { get; set; }
         public virtual DbSet<ApartmentType> ApartmentType { get; set; }
         public virtual DbSet<Booking> Booking { get; set; }
         public virtual DbSet<BookingStatus> BookingStatus { get; set; }
@@ -48,6 +46,7 @@ namespace ApartmentChain
         public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Streets> Streets { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }
 }

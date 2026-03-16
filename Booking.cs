@@ -27,7 +27,7 @@ namespace ApartmentChain
         public int ApartmentID { get; set; }
         public double TotalCost { get; set; }
         public int BookingStatusID { get; set; }
-        public Nullable<int> AmountOfPeople { get; set; }
+        public int AmountOfPeople { get; set; }
     
         public virtual Apartaments Apartaments { get; set; }
         public virtual BookingStatus BookingStatus { get; set; }

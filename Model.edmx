@@ -12,9 +12,8 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AddressID" Type="int" Nullable="false" />
           <Property Name="TypeID" Type="int" Nullable="false" />
-          <Property Name="StatusID" Type="int" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
-          <Property Name="MaxAmountOfPeople" Type="int" />
+          <Property Name="ApartmentNameID" Type="int" />
         </EntityType>
         <EntityType Name="ApartmentAddress">
           <Key>
@@ -27,6 +26,13 @@
           <Property Name="StreetID" Type="int" Nullable="false" />
           <Property Name="Building" Type="nvarchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="ApartmentName">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="ApartmentPhotos">
           <Key>
             <PropertyRef Name="ID" />
@@ -34,13 +40,6 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ApartmentID" Type="int" Nullable="false" />
           <Property Name="PhotoUrl" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ApartmentStatus">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="ApartmentType">
           <Key>
@@ -60,7 +59,7 @@
           <Property Name="ApartmentID" Type="int" Nullable="false" />
           <Property Name="TotalCost" Type="float" Nullable="false" />
           <Property Name="BookingStatusID" Type="int" Nullable="false" />
-          <Property Name="AmountOfPeople" Type="int" />
+          <Property Name="AmountOfPeople" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BookingStatus">
           <Key>
@@ -130,6 +129,16 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Street" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
@@ -155,15 +164,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Apartaments_ApartmentStatus">
-          <End Role="ApartmentStatus" Type="Self.ApartmentStatus" Multiplicity="1" />
+        <Association Name="FK_Apartaments_ApartmentName">
+          <End Role="ApartmentName" Type="Self.ApartmentName" Multiplicity="0..1" />
           <End Role="Apartaments" Type="Self.Apartaments" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ApartmentStatus">
+            <Principal Role="ApartmentName">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Apartaments">
-              <PropertyRef Name="StatusID" />
+              <PropertyRef Name="ApartmentNameID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -338,8 +347,8 @@
         <EntityContainer Name="Хранилище ApartmentChainModelContainer">
           <EntitySet Name="Apartaments" EntityType="Self.Apartaments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApartmentAddress" EntityType="Self.ApartmentAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApartmentName" EntityType="Self.ApartmentName" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApartmentPhotos" EntityType="Self.ApartmentPhotos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ApartmentStatus" EntityType="Self.ApartmentStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApartmentType" EntityType="Self.ApartmentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookingStatus" EntityType="Self.BookingStatus" Schema="dbo" store:Type="Tables" />
@@ -351,13 +360,14 @@
           <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Streets" EntityType="Self.Streets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Apartaments_ApartmentAddress" Association="Self.FK_Apartaments_ApartmentAddress">
             <End Role="ApartmentAddress" EntitySet="ApartmentAddress" />
             <End Role="Apartaments" EntitySet="Apartaments" />
           </AssociationSet>
-          <AssociationSet Name="FK_Apartaments_ApartmentStatus" Association="Self.FK_Apartaments_ApartmentStatus">
-            <End Role="ApartmentStatus" EntitySet="ApartmentStatus" />
+          <AssociationSet Name="FK_Apartaments_ApartmentName" Association="Self.FK_Apartaments_ApartmentName">
+            <End Role="ApartmentName" EntitySet="ApartmentName" />
             <End Role="Apartaments" EntitySet="Apartaments" />
           </AssociationSet>
           <AssociationSet Name="FK_Apartaments_ApartmentType" Association="Self.FK_Apartaments_ApartmentType">
@@ -429,11 +439,10 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AddressID" Type="Int32" Nullable="false" />
           <Property Name="TypeID" Type="Int32" Nullable="false" />
-          <Property Name="StatusID" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Double" Nullable="false" />
-          <Property Name="MaxAmountOfPeople" Type="Int32" />
+          <Property Name="ApartmentNameID" Type="Int32" />
           <NavigationProperty Name="ApartmentAddress" Relationship="Self.FK_Apartaments_ApartmentAddress" FromRole="Apartaments" ToRole="ApartmentAddress" />
-          <NavigationProperty Name="ApartmentStatus" Relationship="Self.FK_Apartaments_ApartmentStatus" FromRole="Apartaments" ToRole="ApartmentStatus" />
+          <NavigationProperty Name="ApartmentName" Relationship="Self.FK_Apartaments_ApartmentName" FromRole="Apartaments" ToRole="ApartmentName" />
           <NavigationProperty Name="ApartmentType" Relationship="Self.FK_Apartaments_ApartmentType" FromRole="Apartaments" ToRole="ApartmentType" />
           <NavigationProperty Name="ApartmentPhotos" Relationship="Self.FK_ApartmentPhotos_Apartment" FromRole="Apartaments" ToRole="ApartmentPhotos" />
           <NavigationProperty Name="Booking" Relationship="Self.FK_Booking_Apartaments" FromRole="Apartaments" ToRole="Booking" />
@@ -455,6 +464,14 @@
           <NavigationProperty Name="Regions" Relationship="Self.FK_ApartmentAddress_Regions" FromRole="ApartmentAddress" ToRole="Regions" />
           <NavigationProperty Name="Streets" Relationship="Self.FK_ApartmentAddress_Streets" FromRole="ApartmentAddress" ToRole="Streets" />
         </EntityType>
+        <EntityType Name="ApartmentName">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Apartaments" Relationship="Self.FK_Apartaments_ApartmentName" FromRole="ApartmentName" ToRole="Apartaments" />
+        </EntityType>
         <EntityType Name="ApartmentPhotos">
           <Key>
             <PropertyRef Name="ID" />
@@ -463,14 +480,6 @@
           <Property Name="ApartmentID" Type="Int32" Nullable="false" />
           <Property Name="PhotoUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Apartaments" Relationship="Self.FK_ApartmentPhotos_Apartment" FromRole="ApartmentPhotos" ToRole="Apartaments" />
-        </EntityType>
-        <EntityType Name="ApartmentStatus">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Apartaments" Relationship="Self.FK_Apartaments_ApartmentStatus" FromRole="ApartmentStatus" ToRole="Apartaments" />
         </EntityType>
         <EntityType Name="ApartmentType">
           <Key>
@@ -491,7 +500,7 @@
           <Property Name="ApartmentID" Type="Int32" Nullable="false" />
           <Property Name="TotalCost" Type="Double" Nullable="false" />
           <Property Name="BookingStatusID" Type="Int32" Nullable="false" />
-          <Property Name="AmountOfPeople" Type="Int32" />
+          <Property Name="AmountOfPeople" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Apartaments" Relationship="Self.FK_Booking_Apartaments" FromRole="Booking" ToRole="Apartaments" />
           <NavigationProperty Name="BookingStatus" Relationship="Self.FK_Booking_BookingStatus" FromRole="Booking" ToRole="BookingStatus" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Booking_Customers" FromRole="Booking" ToRole="Users" />
@@ -576,6 +585,16 @@
           <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ApartmentAddress" Relationship="Self.FK_ApartmentAddress_Streets" FromRole="Streets" ToRole="ApartmentAddress" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
@@ -604,15 +623,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Apartaments_ApartmentStatus">
-          <End Role="ApartmentStatus" Type="Self.ApartmentStatus" Multiplicity="1" />
+        <Association Name="FK_Apartaments_ApartmentName">
+          <End Role="ApartmentName" Type="Self.ApartmentName" Multiplicity="0..1" />
           <End Role="Apartaments" Type="Self.Apartaments" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ApartmentStatus">
+            <Principal Role="ApartmentName">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Apartaments">
-              <PropertyRef Name="StatusID" />
+              <PropertyRef Name="ApartmentNameID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -787,8 +806,8 @@
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Apartaments" EntityType="Self.Apartaments" />
           <EntitySet Name="ApartmentAddress" EntityType="Self.ApartmentAddress" />
+          <EntitySet Name="ApartmentName" EntityType="Self.ApartmentName" />
           <EntitySet Name="ApartmentPhotos" EntityType="Self.ApartmentPhotos" />
-          <EntitySet Name="ApartmentStatus" EntityType="Self.ApartmentStatus" />
           <EntitySet Name="ApartmentType" EntityType="Self.ApartmentType" />
           <EntitySet Name="Booking" EntityType="Self.Booking" />
           <EntitySet Name="BookingStatus" EntityType="Self.BookingStatus" />
@@ -800,13 +819,14 @@
           <EntitySet Name="Reviews" EntityType="Self.Reviews" />
           <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="Streets" EntityType="Self.Streets" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Users" EntityType="Self.Users" />
           <AssociationSet Name="FK_Apartaments_ApartmentAddress" Association="Self.FK_Apartaments_ApartmentAddress">
             <End Role="ApartmentAddress" EntitySet="ApartmentAddress" />
             <End Role="Apartaments" EntitySet="Apartaments" />
           </AssociationSet>
-          <AssociationSet Name="FK_Apartaments_ApartmentStatus" Association="Self.FK_Apartaments_ApartmentStatus">
-            <End Role="ApartmentStatus" EntitySet="ApartmentStatus" />
+          <AssociationSet Name="FK_Apartaments_ApartmentName" Association="Self.FK_Apartaments_ApartmentName">
+            <End Role="ApartmentName" EntitySet="ApartmentName" />
             <End Role="Apartaments" EntitySet="Apartaments" />
           </AssociationSet>
           <AssociationSet Name="FK_Apartaments_ApartmentType" Association="Self.FK_Apartaments_ApartmentType">
@@ -878,9 +898,8 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="AddressID" ColumnName="AddressID" />
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="MaxAmountOfPeople" ColumnName="MaxAmountOfPeople" />
+                <ScalarProperty Name="ApartmentNameID" ColumnName="ApartmentNameID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -896,20 +915,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ApartmentName">
+            <EntityTypeMapping TypeName="ApartmentChainModel.ApartmentName">
+              <MappingFragment StoreEntitySet="ApartmentName">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ApartmentPhotos">
             <EntityTypeMapping TypeName="ApartmentChainModel.ApartmentPhotos">
               <MappingFragment StoreEntitySet="ApartmentPhotos">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ApartmentID" ColumnName="ApartmentID" />
                 <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ApartmentStatus">
-            <EntityTypeMapping TypeName="ApartmentChainModel.ApartmentStatus">
-              <MappingFragment StoreEntitySet="ApartmentStatus">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1009,6 +1028,17 @@
               <MappingFragment StoreEntitySet="Streets">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ApartmentChainModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

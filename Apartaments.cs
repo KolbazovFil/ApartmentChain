@@ -25,12 +25,11 @@ namespace ApartmentChain
         public int ID { get; set; }
         public int AddressID { get; set; }
         public int TypeID { get; set; }
-        public int StatusID { get; set; }
         public double Price { get; set; }
-        public Nullable<int> MaxAmountOfPeople { get; set; }
+        public Nullable<int> ApartmentNameID { get; set; }
     
         public virtual ApartmentAddress ApartmentAddress { get; set; }
-        public virtual ApartmentStatus ApartmentStatus { get; set; }
+        public virtual ApartmentName ApartmentName { get; set; }
         public virtual ApartmentType ApartmentType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ApartmentPhotos> ApartmentPhotos { get; set; }

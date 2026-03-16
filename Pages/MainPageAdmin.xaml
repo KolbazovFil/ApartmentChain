@@ -45,7 +45,7 @@
         <DataGrid x:Name="BookingsDataGrid" Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-                <DataGridTextColumn Header="Апартаменты" Binding="{Binding ApartmentID}"/>
+                <DataGridTextColumn Header="Апартаменты" Binding="{Binding Apartaments.ApartmentName.Name}"/>
                 <DataGridTextColumn Header="Заезд" Binding="{Binding Arrival}"/>
                 <DataGridTextColumn Header="Выезд" Binding="{Binding Departure}"/>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Users.Surename}"/>
