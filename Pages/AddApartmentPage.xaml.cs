@@ -24,5 +24,15 @@ namespace ApartmentChain.Pages
         {
             InitializeComponent();
         }
+
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

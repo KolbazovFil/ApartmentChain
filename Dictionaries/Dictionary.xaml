@@ -40,7 +40,7 @@
         </Style.Triggers>
     </Style>
 
-    <!-- Кнопка комманд -->
+    <!-- Кнопка для фото-->
     <Style x:Key="CommandButtonStyle" TargetType="Button">
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="Background" Value="#66E0E0DC"/>
@@ -80,8 +80,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-
 
     <!-- PasswordBox -->
     <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
@@ -123,19 +121,6 @@
         <Setter Property="BorderBrush" Value="#CCCCCC"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="White"/>
-    </Style>
-
-
-
-
-    <!-- Image -->
-    <Style x:Key="ImageStyle" TargetType="Image">
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="Focusable" Value="False"/>
-        <Setter Property="IsHitTestVisible" Value="True"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="Stretch" Value="UniformToFill"/>
     </Style>
 
     <!-- Menu -->
@@ -192,4 +177,36 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
     
+    <!-- ComboBox -->
+    <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="40"/>
+    </Style>
+
+    <!-- DataGrid -->
+    <Style x:Key="DataGridStyle" TargetType="DataGrid">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="MinColumnWidth" Value="100"/>
+        <Setter Property="MinRowHeight" Value="50"/>
+    </Style>
+
+    <!-- TextBlock -->
+    <Style x:Key="DataGridTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
 </ResourceDictionary>

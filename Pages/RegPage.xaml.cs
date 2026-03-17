@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace ApartmentChain.Pages
@@ -14,7 +12,9 @@ namespace ApartmentChain.Pages
     public partial class RegPage : Page
     {
         private Users _currentUser = new Users();
+
         private List<Roles> _rolesList = new List<Roles>();
+
         public RegPage(Users user)
         {
             InitializeComponent();
@@ -192,6 +192,7 @@ namespace ApartmentChain.Pages
                 return true;
             }
         }
+
         public bool Edit(int userId, string name, string surname, string login, string password, string confirmPassword, string birthday, string phone, string role)
         {
             DateTime? birthdayDate = null;
@@ -325,6 +326,7 @@ namespace ApartmentChain.Pages
                 BirthdayDatePicker.SelectedDate?.ToString("dd.MM.yyyy"),
                 PhoneNumberTextBox.Text);
         }
+
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             Edit(
@@ -348,11 +350,13 @@ namespace ApartmentChain.Pages
             ConfirmPasswordBox.Clear();
             PhoneNumberTextBox.Clear();
         }
+
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
             Clear();
         }
+
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (ShowPasswordCheckBox.IsChecked == true)
@@ -360,11 +364,13 @@ namespace ApartmentChain.Pages
                 PasswordTextBlock.Text = PasswordBox.Password;
             }
         }
+
         private void ShowPasswordCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             PasswordTextBlock.Visibility = Visibility.Visible;
             PasswordTextBlock.Text = PasswordBox.Password;
         }
+
         private void ShowPasswordCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             PasswordTextBlock.Visibility =Visibility.Collapsed;

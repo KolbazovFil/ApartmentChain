@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -34,12 +31,10 @@ namespace ApartmentChain.Pages
             UsersDataGrid.ItemsSource = context.Users.ToList();
             BookingsDataGrid.ItemsSource = context.Booking.ToList();
         }
-
         private void EditUser_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new RegPage((sender as Button).DataContext as Users));
         }
-
         private void DeleteUser_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -123,12 +118,6 @@ namespace ApartmentChain.Pages
                 }
             }
         }
-
-        private void EditBooking_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void DeleteBooking_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -169,6 +158,11 @@ namespace ApartmentChain.Pages
         }
 
         private void BookingStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void EditBooking_Click(object sender, RoutedEventArgs e)
         {
 
         }

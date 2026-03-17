@@ -100,7 +100,7 @@ namespace ApartmentChain.Pages
                 Departure = departureDate.Value,
                 CustomersID = currentCustomerID,
                 TotalCost = totalCost,
-                BookingStatusID = 1,
+                BookingStatusID = 2,
                 AmountOfPeople = numberOfPeople
             };
 
