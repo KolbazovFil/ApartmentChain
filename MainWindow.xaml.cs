@@ -1,5 +1,6 @@
 ﻿using ApartmentChain.Pages;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -60,6 +61,26 @@ namespace ApartmentChain
         {
             AuthButton.Visibility = Session.IsAuthorized ? Visibility.Collapsed : Visibility.Visible;
             ProfilePanel.Visibility = Session.IsAuthorized ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void Contacts_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new ContactsPage());
+        }
+
+        private void App_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new AboutAppPage());
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Вы действительно хотите закрыть приложение?", "Подтверждение выхода", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }

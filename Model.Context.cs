@@ -19,7 +19,6 @@ namespace ApartmentChain
             : base("name=Entities")
         {
         }
-
         private static Entities _context;
         public static Entities GetContext()
         {

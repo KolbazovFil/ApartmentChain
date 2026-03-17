@@ -1,0 +1,28 @@
+﻿<Page x:Class="ApartmentChain.Pages.ContactsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ApartmentChain.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Страница контактов">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Контактная информация" FontWeight="Bold" Grid.Row="0" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Text="Если у вас есть вопросы или предложения, свяжитесь с нами:" Grid.Row="1" Style="{StaticResource TextBlockStyle}"/>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <TextBlock Text="Электронная почта: contact@example.com" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Телефон: +7 (123) 456-78-90" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Адрес: г. Москва, ул. Примерная, д. 1 (М. Неизвестного)" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Пн - Пт 10.00 - 15.30" Style="{StaticResource TextBlockStyle}"/>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -28,40 +28,65 @@ namespace ApartmentChain.Pages
         {
             var context = Entities.GetContext();
 
-            var list = context.Apartaments.Select(a => new
+            string cityFilter = CityTextBox.Text.Trim().ToLower();
+
+            double? minPrice = null;
+            if (double.TryParse(MinPriceTextBox.Text.Replace(',', '.'), out double min))
+            {
+                minPrice = min;
+            }
+
+            double? maxPrice = null;
+            if (double.TryParse(MaxPriceTextBox.Text.Replace(',', '.'), out double max))
+            {
+                maxPrice = max;
+            }
+
+            var query = context.Apartaments.AsQueryable();
+
+            if (minPrice.HasValue)
+            {
+                query = query.Where(a => a.Price >= minPrice.Value);
+            }
+            if (maxPrice.HasValue)
+            {
+                query = query.Where(a => a.Price <= maxPrice.Value);
+            }
+
+            var list = query.Select(a => new
             {
                 Id = a.ID,
                 Cities = context.ApartmentAddress
-                .Where(addr => addr.ID == a.AddressID)
-                .Select(addr => context.Cities
-                    .Where(r => r.ID == addr.CityID)
-                    .Select(r => r.City + ", ")
-                    .FirstOrDefault())
-                .FirstOrDefault(),
+                    .Where(addr => addr.ID == a.AddressID)
+                    .Select(addr => context.Cities
+                        .Where(r => r.ID == addr.CityID)
+                        .Select(r => r.City + ", ")
+                        .FirstOrDefault())
+                    .FirstOrDefault(),
                 Address = context.ApartmentAddress
                     .Where(addr => addr.ID == a.AddressID)
                     .Select(addr => addr.Streets.Street + ", д. " + addr.Building)
                     .FirstOrDefault(),
                 Price = a.Price,
-
                 Photos = context.ApartmentPhotos
-                .Where(photo => photo.ApartmentID == a.ID)
-                .Select(photo => photo.PhotoUrl)
-                .ToList(),
-
-                PhotosViewModel = new ApartmentPhotosViewModel
-                {
-                    Photos = context.ApartmentPhotos
                     .Where(photo => photo.ApartmentID == a.ID)
                     .Select(photo => photo.PhotoUrl)
                     .ToList(),
+                PhotosViewModel = new ApartmentPhotosViewModel
+                {
+                    Photos = context.ApartmentPhotos
+                        .Where(photo => photo.ApartmentID == a.ID)
+                        .Select(photo => photo.PhotoUrl)
+                        .ToList(),
                     CurrentIndex = 0
                 }
-            }).ToList();
+            }).Where(item =>
+                string.IsNullOrEmpty(cityFilter) ||
+                (item.Cities != null && item.Cities.ToLower().Contains(cityFilter))
+            ).ToList();
 
             ApartList.ItemsSource = list;
         }
-
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             {
@@ -90,6 +115,21 @@ namespace ApartmentChain.Pages
                     NavigationService.Navigate(bookingPage);
                 }
             }
+        }
+        private void CityTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            LoadAllApartment();
+        }
+        private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            LoadAllApartment();
+        }
+
+        private void CleanButton_Click(object sender, RoutedEventArgs e)
+        {
+            MinPriceTextBox.Text = string.Empty;
+            MaxPriceTextBox.Text= string.Empty;
+            CityTextBox.Text = string.Empty;
         }
     }
 
@@ -147,33 +187,32 @@ namespace ApartmentChain.Pages
             }
         }
 
-
         public string CurrentPhoto => Photos.Count > 0 ? Photos[CurrentIndex] : "../Resources/plug.png";
 
         public ICommand PrevPhotoCommand { get; }
         public ICommand NextPhotoCommand { get; }
 
-        public ApartmentPhotosViewModel()   // конструктор для создания команд
+        public ApartmentPhotosViewModel()
         {
             PrevPhotoCommand = new RelayCommand(_ => PrevPhoto());
             NextPhotoCommand = new RelayCommand(_ => NextPhoto());
             _currentIndex = 0;
         }
 
-        private void PrevPhoto()    // метод переключения назад
+        private void PrevPhoto()
         {
             if (Photos.Count == 0) return;
             CurrentIndex = (CurrentIndex - 1 + Photos.Count) % Photos.Count;
         }
 
-        private void NextPhoto()    // метод переключения вперед
+        private void NextPhoto()
         {
             if (Photos.Count == 0) return;
             CurrentIndex = (CurrentIndex + 1) % Photos.Count;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)   // для обновления интерфейса при изменениях
+        protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

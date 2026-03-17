@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows;
@@ -62,7 +64,6 @@ namespace ApartmentChain.Pages
 
             BookingsDataGrid.ItemsSource = bookings;
         }
-
         private void LoadCurrentUser()
         {
             var context = Entities.GetContext();
@@ -130,7 +131,6 @@ namespace ApartmentChain.Pages
 
             BookingsDataGrid.ItemsSource = bookings;
         }
-
         private void LoadStatusComboBox()
         {
             var context = Entities.GetContext();
@@ -159,22 +159,12 @@ namespace ApartmentChain.Pages
 
             switch (status)
             {
-                case "Отменено": e.Row.Foreground = Brushes.Red; break;
+                case "Отменено": e.Row.Foreground = Brushes.DarkRed; break;
                 case "Подтверждено": e.Row.Foreground = Brushes.Green; break;
-                case "В обработке": e.Row.Foreground = Brushes.Black; break;
-                default: e.Row.Foreground = Brushes.Gray; break;
+                case "Завершено": e.Row.Foreground = Brushes.DarkGreen; break;
+                case "В обработке": e.Row.Foreground = Brushes.Gray; break;
+                default: e.Row.Foreground = Brushes.Black; break;
             }
-
-        }
-
-        private void EditBooking_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void SaveBooking_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

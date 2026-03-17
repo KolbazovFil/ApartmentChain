@@ -28,15 +28,9 @@ namespace ApartmentChain.Pages
             var user = db.Users.FirstOrDefault(u => u.Login == Session.CurrentUserLogin);
 
             if (user != null && user.RoleID == 1)
-            {
                 MainPageAdminButton.Visibility = Visibility.Visible;
-                AddApartmentButton.Visibility = Visibility.Visible;
-            }
             else
-            {
                 MainPageAdminButton.Visibility = Visibility.Collapsed;
-                AddApartmentButton.Visibility = Visibility.Collapsed;
-            }
         }
 
         private void Exit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -53,7 +47,7 @@ namespace ApartmentChain.Pages
             NavigationService.Navigate(new RegPage((sender as Button).DataContext as Users));
         }
 
-        private void EditBookingButton_Click(object sender, RoutedEventArgs e)
+        private void ViewBookingButton_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService != null) NavigationService.Navigate(new BookingManagmentPage());
         }
@@ -97,11 +91,6 @@ namespace ApartmentChain.Pages
         private void MainPageAdminButton_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService != null) NavigationService.Navigate(new MainPageAdmin());
-        }
-
-        private void AddApartmentButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (NavigationService != null) NavigationService.Navigate(new AddApartmentPage());
         }
     }
 }

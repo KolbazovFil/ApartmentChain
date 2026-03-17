@@ -28,22 +28,16 @@
             <TextBlock Text="Редактировать профиль" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
         </Button>
 
-        <Button Name="EditBookingButton" ToolTip="Нажмите чтобы перейти к своим бронированиям" Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="EditBookingButton_Click">
-            <TextBlock Text="Управление бронированием" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
+        <Button Name="ViewBookingButton" ToolTip="Нажмите чтобы перейти к своим бронированиям" Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="ViewBookingButton_Click">
+            <TextBlock Text="Мои бронирования" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
         </Button>
 
         <Button Name="DeleteProfileButton" ToolTip="Нажмите чтобы удалить свой профиль" Grid.Row="1" Grid.Column="3" Style="{StaticResource ButtonStyle}" Click="DeleteProfileButton_Click">
-            <TextBlock Text="Удаление своего профиля" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Удалить свой профиль" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
         </Button>
 
         <Button Name="MainPageAdminButton" ToolTip="Нажмите чтобы перейти на страницу администратора" Grid.Row="2" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="MainPageAdminButton_Click">
             <TextBlock Text="Пользователи и бронирования" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
         </Button>
-
-        <Button Name="AddApartmentButton" ToolTip="Нажмите чтобы добавить апартаменты" Grid.Row="2" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="AddApartmentButton_Click">
-            <TextBlock Text="Добавить апартаменты" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
-        </Button>
-
-
     </Grid>
 </Page>

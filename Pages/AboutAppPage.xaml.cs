@@ -15,24 +15,19 @@ using System.Windows.Shapes;
 
 namespace ApartmentChain.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для AddApartmentPage.xaml
-    /// </summary>
-    public partial class AddApartmentPage : Page
+    public partial class AboutAppPage : Page
     {
-        public AddApartmentPage()
+        public AboutAppPage()
         {
             InitializeComponent();
+            LoadData();
         }
 
-        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void LoadData()
         {
-
-        }
-
-        private void EditButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            var context = Entities.GetContext();
+            var confirmedCount = context.Booking.Count(b => b.BookingStatus.Status == "Подтверждено");
+            CountDeal.Text = $"Совершено сделок: {confirmedCount.ToString()}";
         }
     }
 }

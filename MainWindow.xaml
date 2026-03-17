@@ -16,31 +16,10 @@
             <Image Name="LogoPhoto" ToolTip="Нажмите чтобы вернуться на главную страницу" Cursor="Hand" Source="/Resources/Logo.png" MouseLeftButtonUp="LogoPhoto_MouseLeftButtonUp"/>
 
             <Menu Style="{StaticResource MenuStyle}">
-                <MenuItem Header="Города" ToolTip="Выберите город" Style="{StaticResource MenuItemStyle}">
-                    <MenuItem Header="Москва"/>
-                    <Separator Style="{StaticResource SeparatorStyle}"/>
-                    <MenuItem Header="Санкт-Петербург"/>
-                    <Separator Style="{StaticResource SeparatorStyle}"/>
-                    <MenuItem Header="Сочи"/>
-                    <Separator Style="{StaticResource SeparatorStyle}"/>
-                    <MenuItem Header="Казань"/>
-                    <Separator Style="{StaticResource SeparatorStyle}"/>
-                    <MenuItem Header="Екатеринбург"/>
-                </MenuItem>
-
-                <MenuItem Header="Локации" ToolTip="Выберите локацию" Style="{StaticResource MenuItemStyle}">
-                    <MenuItem Header="Страны"/>
-                    <Separator Style="{StaticResource SeparatorStyle}"/>
-                    <MenuItem Header="Города"/>
-                    <Separator Style="{StaticResource SeparatorStyle}"/>
-                    <MenuItem Header="Регионы"/>
-                    <Separator Style="{StaticResource SeparatorStyle}"/>
-                    <MenuItem Header="Улицы"/>
-                </MenuItem>
-
-                <MenuItem Header="Отзывы" ToolTip="Нажмите для просмотра отзывов" Style="{StaticResource MenuItemStyle}"/>
-                <MenuItem Header="Справка" ToolTip="Нажмите для просмотра справки" Style="{StaticResource MenuItemStyle}"/>
-                <MenuItem Header="Выход" ToolTip="Нажмите для завершения работы с приложением" Style="{StaticResource MenuItemStyle}"/>
+                <MenuItem Name="Contacts" Header="Контакты" ToolTip="Нажмите чтобы перейти к контактам" Style="{StaticResource MenuItemStyle}" Click="Contacts_Click" />
+                <MenuItem Name="App" Header="О приложении" ToolTip="Нажмите чтобы перейти к информации" Style="{StaticResource MenuItemStyle}" Click="App_Click"/>
+                <MenuItem Name="Help" Header="Помощь" ToolTip="Нажмите чтобы перейти к помощи" Style="{StaticResource MenuItemStyle}"/>
+                <MenuItem Name="Exit" Header="Выход" ToolTip="Нажмите для завершения работы с приложением" Style="{StaticResource MenuItemStyle}" Click="Exit_Click"/>
             </Menu>
         </StackPanel>
 
