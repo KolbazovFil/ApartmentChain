@@ -132,6 +132,7 @@ namespace ApartmentChain.Pages
         {
             var context = Entities.GetContext();
             var statuses = context.BookingStatus.ToList();
+
             FilterStatusComboBox.ItemsSource = statuses;
             FilterStatusComboBox.DisplayMemberPath = "Status";
             FilterStatusComboBox.SelectedValuePath = "ID";

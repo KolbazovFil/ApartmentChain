@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -11,6 +14,7 @@ namespace ApartmentChain.Pages
 {
     public partial class MainPageAdmin : Page
     {
+        public List<BookingStatus> BookingStatuses { get; set; }
         public MainPageAdmin()
         {
             InitializeComponent();
@@ -33,7 +37,11 @@ namespace ApartmentChain.Pages
             var context = Entities.GetContext();
             UsersDataGrid.ItemsSource = context.Users.ToList();
             BookingsDataGrid.ItemsSource = context.Booking.ToList();
+            BookingStatuses = context.BookingStatus.ToList();
+            DataContext = this;
         }
+
+
         private void EditUser_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new RegPage((sender as Button).DataContext as Users));
@@ -167,65 +175,79 @@ namespace ApartmentChain.Pages
 
             var context = Entities.GetContext();
 
-            var button = sender as Button;
-            var editedBooking = button?.DataContext as Booking;
-
-            if (editedBooking != null)
+            try
             {
-                try
-                {
-                    var bookingToSave = context.Booking.FirstOrDefault(u => u.ID == editedBooking.ID);
-                    if (bookingToSave != null)
-                    {
-                        context.Entry(bookingToSave).CurrentValues.SetValues(editedBooking);
-                        context.SaveChanges();
-                        LoadData();
+                context.SaveChanges();
+                LoadData();
 
-                        BookingsDataGrid.IsReadOnly = true;
-                        EditBooking.Visibility = Visibility.Visible;
-                        SaveBooking.Visibility = Visibility.Collapsed;
-
-                        MessageBox.Show("Бронирование успешно сохранено.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                }
-                catch (Exception ex)
+                foreach (var column in BookingsDataGrid.Columns)
                 {
-                    MessageBox.Show($"Ошибка сохранения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    column.IsReadOnly = true;
                 }
+
+                BookingsDataGrid.IsReadOnly = true;
+                EditBooking.Visibility = Visibility.Visible;
+                SaveBooking.Visibility = Visibility.Collapsed;
+
+                MessageBox.Show("Все изменения успешно сохранены.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Нет изменений для сохранения.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Ошибка сохранения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        int[] editableColumnsIndex = { 2, 3, 6, 7, 8 };
+
         private void EditBooking_Click(object sender, RoutedEventArgs e)
         {
-            if (BookingsDataGrid != null && BookingsDataGrid.SelectedItem != null)
+            try
             {
-                try
+                BookingsDataGrid.IsReadOnly = false;
+                BookingsDataGrid.UpdateLayout();
+
+                Style editableCellStyle = new Style(typeof(DataGridCell));
+
+                var trigger = new DataTrigger()
                 {
-                    var context = Entities.GetContext();
-                    var selectedBooking = BookingsDataGrid.SelectedItem as Booking;
+                    Binding = new Binding("IsReadOnly") { RelativeSource = new RelativeSource(RelativeSourceMode.Self) },
+                    Value = false
+                };
 
-                    if (selectedBooking != null)
+                trigger.Setters.Add(new Setter(DataGridCell.BackgroundProperty, Brushes.LightGreen));
+                editableCellStyle.Triggers.Add(trigger);
+
+                foreach (var column in BookingsDataGrid.Columns)
+                {
+                    int index = BookingsDataGrid.Columns.IndexOf(column);
+                    if (editableColumnsIndex.Contains(index))
                     {
-                        BookingsDataGrid.IsReadOnly = false;
-
-                        BookingsDataGrid.CurrentCell = new DataGridCellInfo(selectedBooking, BookingsDataGrid.Columns[0]);
-                        BookingsDataGrid.BeginEdit();
-
-                        EditBooking.Visibility = Visibility.Collapsed;
-                        SaveBooking.Visibility = Visibility.Visible;
+                        column.IsReadOnly = false;
+                        column.CellStyle = editableCellStyle;
+                    }
+                    else
+                    {
+                        column.IsReadOnly = true;
+                        column.CellStyle = null;
                     }
                 }
-                catch (Exception ex)
+
+                if (BookingsDataGrid.Columns.Count > 0)
                 {
-                    MessageBox.Show($"Ошибка при подготовке к редактированию: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    BookingsDataGrid.CurrentCell = new DataGridCellInfo(BookingsDataGrid.Items[0], BookingsDataGrid.Columns[0]);
+                    BookingsDataGrid.BeginEdit();
                 }
+
+                EditBooking.Visibility = Visibility.Collapsed;
+                SaveBooking.Visibility = Visibility.Visible;
+
+                MessageBox.Show("- Вы вошли в режим редактирования бронирования;" +
+                    "\n- Вы можете редактировать только подсвеченые колонки;" +
+                    "\n- Не забудте сохранить изменения!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Пожалуйста, выберите бронирование для редактирования.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Ошибка при подготовке к редактированию: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

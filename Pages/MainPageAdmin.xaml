@@ -21,7 +21,7 @@
             <TextBlock Text="Пользователи" Grid.Row="0" Style="{StaticResource HeaderTextBlockStyle}"/>
             <DataGrid x:Name="UsersDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" MinWidth="30" Binding="{Binding ID}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTextColumn Header="ID" MinWidth="30" Binding="{Binding ID}" ElementStyle="{StaticResource TextBlockStyle}"/>
                     <DataGridTextColumn Header="Имя" MinWidth="100" Binding="{Binding Name}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
                     <DataGridTextColumn Header="Фамилия" MinWidth="100" Binding="{Binding Surename}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
                     <DataGridTextColumn Header="Дата рождения" MinWidth="100" Binding="{Binding Birthday, StringFormat=dd.MM.yyyy}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
@@ -45,7 +45,7 @@
             <TextBlock Text="Бронирования" Grid.Row="2" Margin="0,10,0,0" Style="{StaticResource HeaderTextBlockStyle}"/>
             <DataGrid x:Name="BookingsDataGrid" Grid.Row="3" Style="{StaticResource DataGridStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" MinWidth="30" Binding="{Binding ID}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTextColumn Header="ID" MinWidth="30" Binding="{Binding ID}" ElementStyle="{StaticResource TextBlockStyle}"/>
                     <DataGridTextColumn Header="Апартаменты" Binding="{Binding Apartaments.ApartmentName.Name}" IsReadOnly="False" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
                     <DataGridTemplateColumn Header="Заезд">
                         <DataGridTemplateColumn.CellTemplate>
@@ -75,7 +75,7 @@
                     
                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Users.Surename}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
                     <DataGridTextColumn Header="Имя" Binding="{Binding Users.Name}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
-                    <DataGridTextColumn Header="Количество людей" Binding="{Binding AmountOfPeople}"/>
+                    <DataGridTextColumn Header="Количество людей" Binding="{Binding AmountOfPeople}" ElementStyle="{StaticResource TextBlockStyle}"/>
                     <DataGridTextColumn Header="Сумма к оплате" Binding="{Binding TotalCost, StringFormat={}{0} ₽}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
                     
                     <DataGridTemplateColumn Header="Статус бронирования">
@@ -86,8 +86,8 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <ComboBox ItemsSource="{Binding DataContext.Statuses, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
-                                          SelectedItem="{Binding BookingStatus.Status, Mode=TwoWay}" DisplayMemberPath="Status"/>
+                                <ComboBox ItemsSource="{Binding DataContext.BookingStatuses, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                  SelectedItem="{Binding BookingStatus, Mode=TwoWay}" DisplayMemberPath="Status" SelectedValuePath="ID"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
