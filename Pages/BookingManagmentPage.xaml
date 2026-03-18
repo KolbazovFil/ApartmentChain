@@ -5,9 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:ApartmentChain.Pages"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="1100"
-      Title="Страница управления бронированиями"
-      IsVisibleChanged="Page_IsVisibleChanged">
+      d:DesignHeight="450" d:DesignWidth="1230"
+      Title="Страница c бронированиями" IsVisibleChanged="Page_IsVisibleChanged">
     
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -18,12 +17,12 @@
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Мои бронирования" Grid.Row="0" FontWeight="Bold" Style="{StaticResource TextBlockStyle }"/>
+            <TextBlock Text="Мои бронирования" Grid.Row="0" Style="{StaticResource HeaderTextBlockStyle }"/>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0">
                 <TextBlock Text="Фильтр по статусу:" Style="{StaticResource TextBlockStyle}"/>
                 <ComboBox Name="FilterStatusComboBox" ToolTip="Выберите статус" Margin="5,0,0,0" Style="{StaticResource ComboBoxStyle}" SelectionChanged="FilterStatusComboBox_SelectionChanged"/>
-                <TextBlock Text="Фильтр по городу - апартаментам:" Margin="5,0,0,0" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text="Фильтр по городу - апартаментам:" Margin="10,0,0,0" Style="{StaticResource TextBlockStyle}"/>
                 <TextBox x:Name="SearchTextBox" ToolTip="Поиск по городу - апартаментам" Margin="5,0,0,0" Style="{StaticResource TextBoxStyle}" TextChanged="SearchTextBox_TextChanged"/>
             </StackPanel>
 

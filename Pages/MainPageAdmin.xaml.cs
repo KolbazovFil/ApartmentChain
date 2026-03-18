@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Media;
 using System.Windows.Navigation;
 
 namespace ApartmentChain.Pages
@@ -55,28 +58,28 @@ namespace ApartmentChain.Pages
                         var context = Entities.GetContext();
 
                         var userToDelete = context.Users.FirstOrDefault(u => u.ID == selectedUser.ID);
-                            if (userToDelete != null)
-                            {
-                                var bookings = context.Booking.Where(b => b.CustomersID == userToDelete.ID).ToList();
-                                context.Booking.RemoveRange(bookings);
+                        if (userToDelete != null)
+                        {
+                            var bookings = context.Booking.Where(b => b.CustomersID == userToDelete.ID).ToList();
+                            context.Booking.RemoveRange(bookings);
 
-                                var reviews = context.Reviews.Where(r => r.UserID == userToDelete.ID).ToList();
-                                context.Reviews.RemoveRange(reviews);
+                            var reviews = context.Reviews.Where(r => r.UserID == userToDelete.ID).ToList();
+                            context.Reviews.RemoveRange(reviews);
 
-                                var payments = context.Payments.Where(p => p.Booking != null && p.Booking.CustomersID == userToDelete.ID).ToList();
-                                context.Payments.RemoveRange(payments);
+                            var payments = context.Payments.Where(p => p.Booking != null && p.Booking.CustomersID == userToDelete.ID).ToList();
+                            context.Payments.RemoveRange(payments);
 
-                                context.Users.Remove(userToDelete);
-                                context.SaveChanges();
+                            context.Users.Remove(userToDelete);
+                            context.SaveChanges();
 
-                                Session.IsAuthorized = false;
-                                Session.CurrentUserLogin = null;
-                                (Application.Current.MainWindow as MainWindow)?.UpdateUI();
-                                LoadData();
-                                if (NavigationService != null) NavigationService.Navigate(new MainPage());
+                            Session.IsAuthorized = false;
+                            Session.CurrentUserLogin = null;
+                            (Application.Current.MainWindow as MainWindow)?.UpdateUI();
+                            LoadData();
+                            if (NavigationService != null) NavigationService.Navigate(new MainPage());
 
-                                MessageBox.Show("Ваш профиль успешно удалён.", "Удаление профиля", MessageBoxButton.OK, MessageBoxImage.Information);
-                            }
+                            MessageBox.Show("Ваш профиль успешно удалён.", "Удаление профиля", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -157,14 +160,73 @@ namespace ApartmentChain.Pages
             }
         }
 
-        private void BookingStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SaveBooking_Click(object sender, RoutedEventArgs e)
         {
+            BookingsDataGrid.CommitEdit(DataGridEditingUnit.Cell, true);
+            BookingsDataGrid.CommitEdit(DataGridEditingUnit.Row, true);
 
+            var context = Entities.GetContext();
+
+            var button = sender as Button;
+            var editedBooking = button?.DataContext as Booking;
+
+            if (editedBooking != null)
+            {
+                try
+                {
+                    var bookingToSave = context.Booking.FirstOrDefault(u => u.ID == editedBooking.ID);
+                    if (bookingToSave != null)
+                    {
+                        context.Entry(bookingToSave).CurrentValues.SetValues(editedBooking);
+                        context.SaveChanges();
+                        LoadData();
+
+                        BookingsDataGrid.IsReadOnly = true;
+                        EditBooking.Visibility = Visibility.Visible;
+                        SaveBooking.Visibility = Visibility.Collapsed;
+
+                        MessageBox.Show("Бронирование успешно сохранено.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка сохранения: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Нет изменений для сохранения.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
-
         private void EditBooking_Click(object sender, RoutedEventArgs e)
         {
+            if (BookingsDataGrid != null && BookingsDataGrid.SelectedItem != null)
+            {
+                try
+                {
+                    var context = Entities.GetContext();
+                    var selectedBooking = BookingsDataGrid.SelectedItem as Booking;
 
+                    if (selectedBooking != null)
+                    {
+                        BookingsDataGrid.IsReadOnly = false;
+
+                        BookingsDataGrid.CurrentCell = new DataGridCellInfo(selectedBooking, BookingsDataGrid.Columns[0]);
+                        BookingsDataGrid.BeginEdit();
+
+                        EditBooking.Visibility = Visibility.Collapsed;
+                        SaveBooking.Visibility = Visibility.Visible;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при подготовке к редактированию: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите бронирование для редактирования.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

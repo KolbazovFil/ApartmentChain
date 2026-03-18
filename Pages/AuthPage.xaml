@@ -19,7 +19,7 @@
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Авторизация пользователя" Grid.Row="0" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
+            <TextBlock Text="Авторизация пользователя" Grid.Row="0" Style="{StaticResource HeaderTextBlockStyle}"/>
 
             <Grid Grid.Row="1" Width="400">
                 <Grid.ColumnDefinitions>
@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="300"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Логин" Grid.Column="0" Style="{StaticResource TextBlockStyle}"/>
-                <TextBox Name="LoginTextBox" Grid.Column="1" ToolTip="Введите логин" Style="{StaticResource TextBoxStyle}"/>
+                <TextBox Name="LoginTextBox" ToolTip="Введите логин" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
             </Grid>
 
             <Grid Grid.Row="2" Width="400">
@@ -36,12 +36,12 @@
                     <ColumnDefinition Width="300"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Пароль" Grid.Column="0" Style="{StaticResource TextBlockStyle}"/>
-                <PasswordBox Name="PasswordBox" Grid.Column="1" ToolTip="Введите пароль" Style="{StaticResource PasswordBoxStyle}"/>
+                <PasswordBox Name="PasswordBox" ToolTip="Введите пароль" Grid.Column="1" Style="{StaticResource PasswordBoxStyle}"/>
             </Grid>
 
             <Button Name="EnterButton" ToolTip="Нажмите чтобы войти" Content="Вход" Grid.Row="3" Style="{StaticResource ButtonStyle}" Click="EnterButton_Click"/>
             <Button Name="RegButton" ToolTip="Нажмите чтобы зарегистрироваться" Content="Регистрация" Grid.Row="4" Style="{StaticResource ButtonStyle}" Click="RegButton_Click"/>
-            <Button Name="CancelButton" ToolTip="Нажмите чтобы отменить" Content="Отмена" Grid.Row="5" Style="{StaticResource ButtonStyle}" Click="CancelButton_Click"/>
+            <Button Name="CancelButton" ToolTip="Нажмите чтобы вернуться" Content="Назад" Grid.Row="5" Style="{StaticResource ButtonStyle}" Click="CancelButton_Click"/>
         </Grid>
     </Grid>
     </ScrollViewer>

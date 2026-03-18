@@ -15,36 +15,39 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel x:Name="SortStackPanel" Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <TextBlock Text="Фильтры" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Center" FontWeight="Bold"/>
+            <TextBlock Text="Фильтры" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
             <TextBlock Text="Минимальная цена" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}" />
-            <TextBox Name="MinPriceTextBox" ToolTip="Введите минимальную цену для фильтрации" TextChanged="FilterTextBox_TextChanged" Style="{StaticResource TextBoxStyle}" Width="200" Height="30"/>
+            <TextBox Name="MinPriceTextBox" ToolTip="Введите минимальную цену для фильтрации" TextChanged="FilterTextBox_TextChanged" Style="{StaticResource TextBoxStyle}"/>
             <TextBlock Text="Максимальная цена" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}"/>
-            <TextBox Name="MaxPriceTextBox" ToolTip="Введите максимальную цену для фильтрации" TextChanged="FilterTextBox_TextChanged" Style="{StaticResource TextBoxStyle}" Width="200" Height="30"/>
+            <TextBox Name="MaxPriceTextBox" ToolTip="Введите максимальную цену для фильтрации" TextChanged="FilterTextBox_TextChanged" Style="{StaticResource TextBoxStyle}"/>
             <TextBlock Text="Город" Margin="0,10,0,0" Style="{StaticResource TextBlockStyle}"/>
-            <TextBox Name="CityTextBox" ToolTip="Введите название города" Style="{StaticResource TextBoxStyle}" Width="200" Height="30" TextChanged="CityTextBox_TextChanged"/>
-            <Button Name="CleanButton" Content="Очистить" ToolTip="Нжмите чтобы очистить фильтр" Height="40" Margin="0,10,0,0" Style="{StaticResource ButtonStyle}" Click="CleanButton_Click"/>
+            <TextBox Name="CityTextBox" ToolTip="Введите название города" Style="{StaticResource TextBoxStyle}" TextChanged="CityTextBox_TextChanged"/>
+            <Button Name="CleanButton" Content="Очистить" ToolTip="Нжмите чтобы очистить фильтр" Margin="0,10,0,0" Style="{StaticResource ButtonStyle}" Click="CleanButton_Click"/>
         </StackPanel>
 
         <ListView Name="ApartList" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1" BorderThickness="0" Background="Transparent">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="450"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
 
-                        <Border DataContext="{Binding PhotosViewModel}" Grid.Row="0" HorizontalAlignment="Center" Width="500" Margin="5">
+                        <Border DataContext="{Binding PhotosViewModel}" Grid.Row="0" HorizontalAlignment="Center" Width="500">
                             <Grid>
                                 <Image Source="{Binding CurrentPhoto}" Stretch="Fill"/>
-                                <Button x:Name="PrevPhotoButton" Content="◀" Command="{Binding PrevPhotoCommand}" HorizontalAlignment="Left" Style="{StaticResource CommandButtonStyle}"/>
-                                <Button x:Name="NextPhotoButton" Content="▶" Command="{Binding NextPhotoCommand}" HorizontalAlignment="Right" Style="{StaticResource CommandButtonStyle}"/>
+                                <Button x:Name="PrevPhotoButton" Content="◀" HorizontalAlignment="Left" Command="{Binding PrevPhotoCommand}" Style="{StaticResource CommandButtonStyle}"/>
+                                <Button x:Name="NextPhotoButton" Content="▶" HorizontalAlignment="Right" Command="{Binding NextPhotoCommand}" Style="{StaticResource CommandButtonStyle}"/>
                             </Grid>
                         </Border>
 
-                        <StackPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal" Height="30" Width="500">
+                        <StackPanel Grid.Row="0" VerticalAlignment="Top" Orientation="Horizontal" Background="#80F5F5DC" Height="30">
                             <Rectangle Width="5"/>
-                            <TextBlock Text="{Binding Cities}" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
+                            <Border Background="{Binding RatingBrush}" CornerRadius="8" Padding="3">
+                                <TextBlock Text="{Binding Reviews}" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
+                            </Border>
+                            <TextBlock Text="{Binding Cities}" Margin="10,0,0,0" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
                             <TextBlock Text="{Binding Address}" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
                             <TextBlock Text="{Binding Building}" Style="{StaticResource TextBlockStyle}" FontWeight="Bold"/>
                         </StackPanel>

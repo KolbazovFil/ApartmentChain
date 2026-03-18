@@ -24,9 +24,9 @@
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Name="AuthButton" Content="Войти" Width="80" Height="40" Margin="0,0,10,0" ToolTip="Войдите или создайте аккаунт, чтобы использовать все возможности сервиса" Style="{StaticResource ButtonStyle}" Click="AuthButton_Click"/>
+            <Button Name="AuthButton" Content="Войти" ToolTip="Войдите или создайте аккаунт, чтобы использовать все возможности сервиса" Width="80" Height="40" Margin="0,0,10,0" Style="{StaticResource ButtonStyle}" Click="AuthButton_Click"/>
             <StackPanel x:Name="ProfilePanel" Orientation="Horizontal" Visibility="Collapsed">
-                <Button Name="ProfileButton" Width="130" Height="40" Style="{StaticResource ButtonStyle}" Click="ProfileButton_Click">
+                <Button Name="ProfileButton" ToolTip="Нажмите чтобы войти в профиль" Width="130" Height="40" Style="{StaticResource ButtonStyle}" Click="ProfileButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Resources/user_profile.ico" Height="25" Width="25"/>
                         <TextBlock Text="Профиль" VerticalAlignment="Center" Margin="5,0,0,0"/>
@@ -34,7 +34,6 @@
                 </Button>
             </StackPanel>
         </StackPanel>
-
         <Frame Name="MainFrame" Source="Pages/MainPage.xaml" Grid.Row="1" NavigationUIVisibility="Hidden" Navigated="MainFrame_OnNavigated" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </Grid>
 </Window>

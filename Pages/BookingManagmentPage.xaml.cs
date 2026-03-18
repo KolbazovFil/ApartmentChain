@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -58,7 +55,7 @@ namespace ApartmentChain.Pages
                     Departure = b.Departure,
                     TotalCost = b.TotalCost,
                     BookingStatus = b.BookingStatus.Status,
-                    MethodOfPay = b.Payments.OrderByDescending(p => p.DateOFPayment).Select(p => p.MethodOfPay.Method).FirstOrDefault() ?? "Не оплачено"
+                    MethodOfPay = b.Payments.OrderByDescending(p => p.DateOFPayment).Select(p => p.MethodOfPay.Method).FirstOrDefault()
                 })
                 .ToList();
 
@@ -126,7 +123,7 @@ namespace ApartmentChain.Pages
                     Departure = b.Departure,
                     TotalCost = b.TotalCost,
                     BookingStatus = b.BookingStatus.Status,
-                    MethodOfPay = b.Payments.OrderByDescending(p => p.DateOFPayment).Select(p => p.MethodOfPay.Method).FirstOrDefault() ?? "Не оплачено"
+                    MethodOfPay = b.Payments.OrderByDescending(p => p.DateOFPayment).Select(p => p.MethodOfPay.Method).FirstOrDefault()
                 }).ToList();
 
             BookingsDataGrid.ItemsSource = bookings;

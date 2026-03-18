@@ -27,22 +27,22 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Name="RegHeadText" Text="Регистрация" FontWeight="Bold" Visibility="Visible" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Name="EditHeadText" Text="Редактирование" FontWeight="Bold" Visibility="Collapsed" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Name="RegHeadText" Text="Регистрация" Visibility="Visible" Style="{StaticResource HeaderTextBlockStyle}"/>
+                <TextBlock Name="EditHeadText" Text="Редактирование" Visibility="Collapsed" Style="{StaticResource HeaderTextBlockStyle}"/>
             </StackPanel>
 
-            <TextBlock Text="Имя" Grid.Row="1" Grid.Column="0" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
-            <TextBlock Text="Фамилия" Grid.Row="2" Grid.Column="0" Style="{ StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
-            <TextBlock Text="Логин" Grid.Row="3" Grid.Column="0" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
-            <TextBlock Text="Пароль" Grid.Row="4" Grid.Column="0" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
-            <TextBlock Text="Подтверждение пароля" Grid.Row="5" Grid.Column="0" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
-            <TextBlock Text="Дата рождения" Grid.Row="6" Grid.Column="0" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
-            <TextBlock Text="Номер телефона" Grid.Row="7" Grid.Column="0" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
-            <TextBlock Name="RolesTextBox" Text="Роль пользователя" Grid.Row="8" Grid.Column="0" Visibility="Collapsed" Style="{StaticResource TextBlockStyle}" Width="200" HorizontalAlignment="Right"/>
+            <TextBlock Text="Имя" Grid.Row="1" Grid.Column="0" Width="200" HorizontalAlignment="Right" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Фамилия" Grid.Row="2" Grid.Column="0" Width="200" HorizontalAlignment="Right" Style="{ StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Логин" Grid.Row="3" Grid.Column="0" Width="200" HorizontalAlignment="Right" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Пароль" Grid.Row="4" Grid.Column="0" Width="200" HorizontalAlignment="Right" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Подтверждение пароля" Grid.Row="5" Grid.Column="0" Width="200" HorizontalAlignment="Right" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Дата рождения" Grid.Row="6" Grid.Column="0" Width="200" HorizontalAlignment="Right" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="Номер телефона" Grid.Row="7" Grid.Column="0" Width="200" HorizontalAlignment="Right" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Name="RolesTextBox" Text="Роль пользователя" Grid.Row="8" Grid.Column="0" Visibility="Collapsed" Width="200" HorizontalAlignment="Right" Style="{StaticResource TextBlockStyle}"/>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                 <TextBox Name="NameTextBox" ToolTip="Введите имя" Text="{Binding Name}" Style="{StaticResource TextBoxStyle}"/>
-                <StackPanel Margin="20,0">
+                <StackPanel Margin="20,0" VerticalAlignment="Center">
                     <TextBlock Name="ValidPswdTxb" Text="Действующий пароль" FontStyle="Italic" Style="{StaticResource TextBlockStyle }"/>
                     <TextBlock Name="ValidPasswordTextBlock" FontWeight="Bold" FontStyle="Italic" Style="{StaticResource TextBlockStyle}"/>
                 </StackPanel>
@@ -62,7 +62,7 @@
 
             <DatePicker Name="BirthdayDatePicker" Text="Введите дату" Grid.Row="6" ToolTip="Выберите дату рождения" Grid.Column="1" SelectedDate="{Binding Birthday}" Style="{StaticResource DatePickerStyle}"/>
             <TextBox Name="PhoneNumberTextBox" ToolTip="Введите номер телефона" Grid.Row="7" Grid.Column="1" Text="{Binding PhoneNumber}" Style="{StaticResource TextBoxStyle}"/>
-            <ComboBox Name="RolesComboBox" ToolTip="Выберите роль" Grid.Row="8" Grid.Column="1" Width="200" HorizontalAlignment="Left" Height="40" FontSize="14" VerticalContentAlignment="Center" FontFamily="Segoe UI" Visibility="Collapsed"/>
+            <ComboBox Name="RolesComboBox" ToolTip="Выберите роль" Grid.Row="8" Grid.Column="1" Visibility="Collapsed" Style="{StaticResource ComboBoxStyle}"/>
 
             <Button Name="CancelButton" Content="Отмена" ToolTip="Нажмите чтобы вернуться назад" Grid.Row="9" Grid.Column="1" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Margin="10,0" Click="CancelButton_Click"/>
 
@@ -70,7 +70,6 @@
                 <Button Name="RegButton" Content="Регистрация" ToolTip="Нажмите чтобы зарегистрироваться" Visibility="Visible" Style="{StaticResource ButtonStyle}" Click="RegButton_Click"/>
                 <Button Name="EditButton" Content="Редактировать" ToolTip="Нажмите чтобы зарегистрироваться" Visibility="Collapsed" Style="{StaticResource ButtonStyle}" Click="EditButton_Click"/>
             </StackPanel>
-
         </Grid>
     </ScrollViewer>
 </Page>

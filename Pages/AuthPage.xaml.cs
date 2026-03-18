@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static ApartmentChain.MainWindow;
 
 namespace ApartmentChain.Pages
 {
@@ -22,11 +11,6 @@ namespace ApartmentChain.Pages
         public AuthPage()
         {
             InitializeComponent();
-        }
-
-        private void EnterButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (Auth(LoginTextBox.Text, PasswordBox.Password)) Clear();
         }
 
         public bool Auth(string login, string password)
@@ -44,6 +28,7 @@ namespace ApartmentChain.Pages
             using (var db = new Entities())
             {
                 var user = db.Users.AsNoTracking().FirstOrDefault(u => u.Login == login);
+
                 if (user == null)
                 {
                     MessageBox.Show("Пользователь с таким логином не найден!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -67,6 +52,10 @@ namespace ApartmentChain.Pages
             return true;
         }
 
+        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Auth(LoginTextBox.Text, PasswordBox.Password)) Clear();
+        }
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
             if (NavigationService != null) NavigationService.Navigate(new RegPage(null));

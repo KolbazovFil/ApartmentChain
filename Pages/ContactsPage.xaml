@@ -8,21 +8,26 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Страница контактов">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
 
-        <TextBlock Text="Контактная информация" FontWeight="Bold" Grid.Row="0" Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Text="Если у вас есть вопросы или предложения, свяжитесь с нами:" Grid.Row="1" Style="{StaticResource TextBlockStyle}"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,10,0,0">
-            <TextBlock Text="Электронная почта: contact@example.com" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="Телефон: +7 (123) 456-78-90" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="Адрес: г. Москва, ул. Примерная, д. 1 (М. Неизвестного)" Style="{StaticResource TextBlockStyle}"/>
-            <TextBlock Text="Пн - Пт 10.00 - 15.30" Style="{StaticResource TextBlockStyle}"/>
-        </StackPanel>
-    </Grid>
+            <TextBlock Text="Контактная информация" Grid.Row="0" Style="{StaticResource HeaderTextBlockStyle}"/>
+            <Image Name="LogoPhoto" Grid.Row="1" Source="/Resources/Logo.png"/>
+            <TextBlock Text="Если у вас есть вопросы или предложения, свяжитесь с нами:" Grid.Row="2" Style="{StaticResource TextBlockStyle}"/>
+
+            <StackPanel Grid.Row="3" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <TextBox Text="Электронная почта: contact@example.com" Style="{StaticResource FocusableTextBoxStyle}"/>
+                <TextBox Text="Телефон: +7 (123) 456-78-90" Style="{StaticResource FocusableTextBoxStyle}"/>
+                <TextBlock Text="Адрес: г. Москва, ул. Примерная, д. 1 (М. Неизвестного)" Style="{StaticResource TextBlockStyle}"/>
+                <TextBlock Text="Пн - Пт 10.00 - 15.30" Style="{StaticResource TextBlockStyle}"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Page>

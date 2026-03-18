@@ -21,8 +21,8 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Профиль" FontWeight="Bold" FontSize="20" Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="0" Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Text="Выйти из профиля" ToolTip="Нажмите чтобы выйти из профиля" Grid.Row="0" Grid.Column="2" Foreground="OrangeRed" Cursor="Hand"  MouseDown="Exit_MouseLeftButtonDown" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Text="Профиль" Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="0" Style="{StaticResource HeaderTextBlockStyle}"/>
+        <TextBlock Text="Выйти из профиля" ToolTip="Нажмите чтобы выйти из профиля" Grid.Row="0" Grid.Column="2" Foreground="OrangeRed" Cursor="Hand" MouseDown="Exit_MouseLeftButtonDown" Style="{StaticResource TextBlockStyle}"/>
 
         <Button Name="EditProfileButton" ToolTip="Нажмите чтобы отредактировать свой профиль" Grid.Row="1" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="EditProfileButton_Click">
             <TextBlock Text="Редактировать профиль" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>

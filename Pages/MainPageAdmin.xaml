@@ -5,67 +5,106 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ApartmentChain.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1550"
       Title="Страница администратора" IsVisibleChanged="Page_IsVisibleChanged">
 
-    <Grid Margin="10" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="65"/>
+            </Grid.RowDefinitions>
 
-        <TextBlock Text="Пользователи" Grid.Row="0" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
-        <DataGrid x:Name="UsersDataGrid" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" HorizontalContentAlignment="Center">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" MinWidth="30" Binding="{Binding ID}"/>
-                <DataGridTextColumn Header="Имя" MinWidth="100" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Фамилия" MinWidth="100" Binding="{Binding Surename}"/>
-                <DataGridTextColumn Header="Дата рождения" MinWidth="100" Binding="{Binding Birthday, StringFormat=dd.MM.yyyy}"/>
-                <DataGridTextColumn Header="Номер телефона" MinWidth="120" Binding="{Binding PhoneNumber}"/>
-                <DataGridTextColumn Header="Роль" MinWidth="100" Binding="{Binding Roles.Role}"/>
-                <DataGridTextColumn Header="Логин" MinWidth="80" Binding="{Binding Login}"/>
-                <DataGridTextColumn Header="Пароль" MinWidth="80" Binding="{Binding PasswordHash}"/>
-                <DataGridTemplateColumn Header="Действия" MinWidth="300">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button Content="Редактировать" Click="EditUser_Click" Height="30" Width="140" Style="{StaticResource ButtonStyle}"/>
-                                <Rectangle Width="10"/>
-                                <Button Content="Удалить" Click="DeleteUser_Click" Height="30" Width="140" Style="{StaticResource ButtonStyle}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+            <TextBlock Text="Пользователи" Grid.Row="0" Style="{StaticResource HeaderTextBlockStyle}"/>
+            <DataGrid x:Name="UsersDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" MinWidth="30" Binding="{Binding ID}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTextColumn Header="Имя" MinWidth="100" Binding="{Binding Name}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTextColumn Header="Фамилия" MinWidth="100" Binding="{Binding Surename}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTextColumn Header="Дата рождения" MinWidth="100" Binding="{Binding Birthday, StringFormat=dd.MM.yyyy}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTextColumn Header="Номер телефона" MinWidth="120" Binding="{Binding PhoneNumber}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTextColumn Header="Роль" MinWidth="100" Binding="{Binding Roles.Role}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTextColumn Header="Логин" MinWidth="80" Binding="{Binding Login}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTextColumn Header="Пароль" MinWidth="80" Binding="{Binding PasswordHash}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTemplateColumn Header="Действия">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Content="Редактировать" Height="30" Width="140" Style="{StaticResource ButtonStyle}" Click="EditUser_Click"/>
+                                    <Button Content="Удалить" Height="30" Width="140" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}" Click="DeleteUser_Click"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
 
-        <TextBlock Text="Бронирования" Grid.Row="2" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
-        <DataGrid x:Name="BookingsDataGrid" Grid.Row="3" AutoGenerateColumns="False" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-                <DataGridTextColumn Header="Апартаменты" Binding="{Binding Apartaments.ApartmentName.Name}"/>
-                <DataGridTextColumn Header="Заезд" Binding="{Binding Arrival}"/>
-                <DataGridTextColumn Header="Выезд" Binding="{Binding Departure}"/>
-                <DataGridTextColumn Header="Фамилия" Binding="{Binding Users.Surename}"/>
-                <DataGridTextColumn Header="Имя" Binding="{Binding Users.Name}"/>
-                <DataGridTextColumn Header="Количество людей" Binding="{Binding AmountOfPeople}"/>
-                <DataGridTextColumn Header="Сумма к оплате" Binding="{Binding TotalCost}"/>
-                <DataGridTextColumn Header="Статус бронирования" Binding="{Binding BookingStatus.Status}"/>
+            <TextBlock Text="Бронирования" Grid.Row="2" Margin="0,10,0,0" Style="{StaticResource HeaderTextBlockStyle}"/>
+            <DataGrid x:Name="BookingsDataGrid" Grid.Row="3" Style="{StaticResource DataGridStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" MinWidth="30" Binding="{Binding ID}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTextColumn Header="Апартаменты" Binding="{Binding Apartaments.ApartmentName.Name}" IsReadOnly="False" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTemplateColumn Header="Заезд">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Arrival, StringFormat=dd.MM.yyyy}" Style="{StaticResource DataGridTextBlockStyle}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <DatePicker SelectedDate="{Binding Arrival, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Действия" MinWidth="300">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button Content="Редактировать" Height="30" Width="140" Style="{StaticResource ButtonStyle}" Click="EditBooking_Click"/>
-                                <Rectangle Width="10"/>
-                                <Button Content="Удалить" Height="30" Width="140" Style="{StaticResource ButtonStyle}" Click="DeleteBooking_Click"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-    </Grid>
+                    <DataGridTemplateColumn Header="Выезд">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Departure, StringFormat=dd.MM.yyyy}" Style="{StaticResource DataGridTextBlockStyle}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <DatePicker SelectedDate="{Binding Departure, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Users.Surename}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Users.Name}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    <DataGridTextColumn Header="Количество людей" Binding="{Binding AmountOfPeople}"/>
+                    <DataGridTextColumn Header="Сумма к оплате" Binding="{Binding TotalCost, StringFormat={}{0} ₽}" ElementStyle="{StaticResource DataGridTextBlockStyle}"/>
+                    
+                    <DataGridTemplateColumn Header="Статус бронирования">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding BookingStatus.Status}" Style="{StaticResource DataGridTextBlockStyle}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ComboBox ItemsSource="{Binding DataContext.Statuses, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                          SelectedItem="{Binding BookingStatus.Status, Mode=TwoWay}" DisplayMemberPath="Status"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTemplateColumn Header="Действия">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button x:Name="DeleteBooking" Content="Удалить" Height="30" Width="140" Margin="10,0,0,0" Style="{StaticResource ButtonStyle}" Click="DeleteBooking_Click"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="EditBooking" Grid.Row="4" Content="Редактировать" Visibility="Visible" Style="{StaticResource ButtonStyle}" Click="EditBooking_Click"/>
+            <Button x:Name="SaveBooking" Grid.Row="4" Content="Сохранить" Visibility="Collapsed" Background="DarkGreen" Style="{StaticResource ButtonStyle}" Click="SaveBooking_Click"/>
+        </Grid>
+    </ScrollViewer>
 </Page>

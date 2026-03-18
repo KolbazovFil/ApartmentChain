@@ -10,18 +10,25 @@ using System.Windows.Media;
 
 namespace ApartmentChain.Pages
 {
+    /// <summary>
+    /// Страница бронирования и отображения деталей апартаментов.
+    /// Позволяет пользователю просматривать информацию о квартире, оставлять отзывы,
+    /// оформлять бронирование с выбранным методом оплаты.
+    /// </summary>
     public partial class BookDetailsPage : Page
     {
         public Apartaments SelectedApartment { get; set; }
-        public ObservableCollection<MethodOfPay> PaymentMethods { get; set; } = new ObservableCollection<MethodOfPay>();
 
         public BookDetailsPage(Apartaments apartment)
         {
             InitializeComponent();
+
             SelectedApartment = apartment;
             DataContext = new BookDetailsViewModel(apartment);
+
             RatingComboBox.SelectedIndex = 3;
             PeopleCountComboBox.SelectedIndex = 0;
+
             LoadPaymentMethods();
         }
 
@@ -29,17 +36,15 @@ namespace ApartmentChain.Pages
         {
             var context = Entities.GetContext();
             var methods = context.MethodOfPay.ToList();
-            PaymentMethods.Clear();
 
-            foreach (var method in methods)
-            {
-                PaymentMethods.Add(method);
-            }
-
-            MethodOfPayComboBox.ItemsSource = PaymentMethods;
+            MethodOfPayComboBox.ItemsSource = methods;
             MethodOfPayComboBox.DisplayMemberPath = "Method";
             MethodOfPayComboBox.SelectedValuePath = "ID";
-            if (PaymentMethods.Count > 0) MethodOfPayComboBox.SelectedIndex = 0;
+
+            if (methods.Count > 0)
+            {
+                MethodOfPayComboBox.SelectedIndex = 0;
+            }
         }
         private int GetCurrentCustomerID()
         {
@@ -59,8 +64,8 @@ namespace ApartmentChain.Pages
         {
             var arrivalDate = ArivalDataPicker.SelectedDate;
             var departureDate = DepartureDataPicker.SelectedDate;
-
             int numberOfPeople = 1;
+
             if (PeopleCountComboBox.SelectedItem != null)
             {
                 numberOfPeople = int.Parse((PeopleCountComboBox.SelectedItem as ComboBoxItem).Content.ToString());
@@ -78,20 +83,13 @@ namespace ApartmentChain.Pages
                 return;
             }
 
-            if (MethodOfPayComboBox.SelectedItem == null)
-            {
-                MessageBox.Show("Пожалуйста, выберите метод оплаты.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            int selectedMethodID = (int)MethodOfPayComboBox.SelectedValue;
-
             var context = Entities.GetContext();
 
             int daysCount = (departureDate.Value - arrivalDate.Value).Days;
+            int selectedMethodID = (int)MethodOfPayComboBox.SelectedValue;
+            int currentCustomerID = GetCurrentCustomerID();
             double pricePerDay = SelectedApartment.Price;
             double totalCost = pricePerDay * daysCount;
-            int currentCustomerID = GetCurrentCustomerID();
 
             var newBooking = new Booking
             {
@@ -121,22 +119,19 @@ namespace ApartmentChain.Pages
 
             if (NavigationService != null) NavigationService.Navigate(new MainPage());
         }
-
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var reviewsTextBlock = this.FindName("ReviewsTextBlock") as TextBlock;
-            if (reviewsTextBlock != null)
+            var reviewsListBox = this.FindName("ReviewsListBox") as ListBox;
+            if (reviewsListBox != null)
             {
-                reviewsTextBlock.BringIntoView();
+                reviewsListBox.BringIntoView();
             }
         }
-
         private void AddReviewButton_Click(object sender, RoutedEventArgs e)
         {
             NewReviewPanel.Visibility = Visibility.Visible;
             AddReviewButton.Visibility = Visibility.Collapsed;
         }
-
         private void CancelNewReview_Click(object sender, RoutedEventArgs e)
         {
             NewReviewPanel.Visibility = Visibility.Collapsed;
@@ -144,7 +139,6 @@ namespace ApartmentChain.Pages
             RatingComboBox.SelectedIndex = 3;
             AddReviewButton.Visibility = Visibility.Visible;
         }
-
         private void SendNewReview_Click(object sender, RoutedEventArgs e)
         {
             string reviewText = NewReviewTextBox.Text.Trim();
@@ -162,7 +156,6 @@ namespace ApartmentChain.Pages
             RatingComboBox.SelectedIndex = 3;
             AddReviewButton.Visibility = Visibility.Visible;
         }
-
         private void SaveReview(string reviewText)
         {
             var context = Entities.GetContext();
@@ -228,6 +221,10 @@ namespace ApartmentChain.Pages
             }
         }
     }
+    /// <summary>
+    /// Модель представления для страницы деталей бронирования.
+    /// Управляет отображением информации о квартире, адресе, отзывах и фотографиях.
+    /// </summary>
     public class BookDetailsViewModel : INotifyPropertyChanged
     {
         public string Countries { get; }
@@ -366,6 +363,9 @@ namespace ApartmentChain.Pages
             };
         }
     }
+    /// <summary>
+    /// Отображение отдельного отзыва для UI.
+    /// </summary>
     public class ReviewDisplay
     {
         public string User { get; set; }
