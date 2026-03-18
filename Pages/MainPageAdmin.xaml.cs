@@ -37,7 +37,7 @@ namespace ApartmentChain.Pages
             var context = Entities.GetContext();
             UsersDataGrid.ItemsSource = context.Users.ToList();
             BookingsDataGrid.ItemsSource = context.Booking.ToList();
-            BookingStatuses = context.BookingStatus.ToList();
+            BookingStatuses = context.BookingStatus.OrderBy(bs => bs.ID).Skip(1).ToList();
             DataContext = this;
         }
 
@@ -242,7 +242,7 @@ namespace ApartmentChain.Pages
                 SaveBooking.Visibility = Visibility.Visible;
 
                 MessageBox.Show("- Вы вошли в режим редактирования бронирования;" +
-                    "\n- Вы можете редактировать только подсвеченые колонки;" +
+                    "\n- Вы можете редактировать только подсвеченные колонки;" +
                     "\n- Не забудте сохранить изменения!", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
