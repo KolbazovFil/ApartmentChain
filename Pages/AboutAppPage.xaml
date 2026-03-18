@@ -24,7 +24,7 @@
             </Grid.RowDefinitions>
             
             <TextBlock Text="О приложении" Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource HeaderTextBlockStyle}"/>
-            <TextBlock Text="Приложение # всероссийская сеть апартартаментов в аренду, созданная Колбазовым Филиппом Дионисовичом в 2026 году." 
+            <TextBlock Text="Приложение ApartmentChain всероссийская сеть апартартаментов в аренду, созданная Колбазовым Филиппом Дионисовичем в 2026 году." 
                        Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" TextAlignment="Justify" HorizontalAlignment="Left" Style="{StaticResource TextBlockStyle}"/>
             
             <TextBlock Text="Сеть имеет собственные технические и операционные стандарты, которые сочетают высокие российские требования и специфику сегмента сдачи апартаментов. Апартартаменты сочетают в себе гостиничную и жилую составляющие." 

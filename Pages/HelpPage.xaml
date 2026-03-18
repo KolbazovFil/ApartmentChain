@@ -1,0 +1,124 @@
+﻿<Page x:Class="ApartmentChain.Pages.HelpPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ApartmentChain.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="960" d:DesignWidth="800"
+      Title="Страница помощи">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Width="800">
+            <StackPanel Width="700">
+                <TextBlock Text="Помощь по использованию приложения ApartmentChain" Style="{StaticResource HeaderTextBlockStyle}"/>
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}">
+                <Run Text="Добро пожаловать в ApartmentChain — приложение для поиска, бронирования и управления апартаментами."/> 
+                <Run Text="Ниже приведено пошаговое руководство по использованию всех функций."/>
+                </TextBlock>
+                <StackPanel Background="White" Margin="0,10,0,0">
+                    <TextBlock Text="🏠 Главная страница" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}">
+                    <Run Text="На главной странице вы можете"/>
+                    <Run Text="просматривать и фильтровать апартаменты" FontWeight="Bold"/>
+                    <Run Text=" по городу и цене. "/>
+                    <Run Text="После авторизации нажмите на карточку квартиры, чтобы перейти к деталям."/>
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Width="650" Style="{StaticResource TextBlockStyle}">
+                    <Run Text="🔍 Фильтры:"/>
+                    <LineBreak/>
+                    <Run Text="• Город — введите название города в поле «Город»."/>
+                    <LineBreak/>
+                    <Run Text="• Мин. цена / Макс. цена — введите числовые значения (например, 2000 или 8000)." />
+                    <LineBreak/>
+                    <Run Text="• Кнопка «Очистить» сбрасывает все фильтры."/>
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Background="White" Margin="0,10,0,0">
+                    <TextBlock Text="🛏️ Детали бронирования" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock TextWrapping="Wrap" Width="650" Style="{StaticResource TextBlockStyle}">
+                    <Run Text="На странице «Детали апартаментов» вы можете: "/>
+                    <LineBreak/>
+                    <Run Text="• Просматривать фотографии апартаментов (навигация стрелками)." />
+                    <LineBreak/>
+                    <Run Text="• Оставлять отзывы и ставить оценку (от 1 до 5 звёзд)." />
+                    <LineBreak/>
+                    <Run Text="• Выбрать даты заезда и выезда, количество гостей." />
+                    <LineBreak/>
+                    <Run Text="• Выбрать способ оплаты (безналичные, наличные)." />
+                    <LineBreak/>
+                    <Run Text="• Нажать «Забронировать» — бронирование отправляется на подтверждение." />
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Background="White" Margin="0,10,0,0">
+                    <TextBlock Text="👤 Авторизация и профиль" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock TextWrapping="Wrap" Width="650" Style="{StaticResource TextBlockStyle}">
+                    <Run Text="Для бронирования требуется "/>
+                    <Hyperlink Click="RegisterHyperlink_Click" Foreground="#3498DB" TextDecorations="Underline">
+                        <Run Text="регистрация."/>
+                    </Hyperlink>
+                    <LineBreak/>
+                    <Run Text="После входа вы можете: "/>
+                    <LineBreak/>
+                    <Run Text="• Просматривать свои бронирования на странице «Мои бронирования»."/>
+                    <LineBreak/>
+                    <Run Text="• Редактировать личные данные (имя, телефон, пароль)." />
+                    <LineBreak/>
+                    <Run Text="• Удалить профиль (внимание: все бронирования будут удалены)." />
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Background="White" Margin="0,10,0,0">
+                    <TextBlock Text="⚙️ Админ-панель (для администраторов)" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock TextWrapping="Wrap" Width="650" Style="{StaticResource TextBlockStyle}">
+                    <Run Text="Доступно только для пользователей с ролью «Администратор». "/>
+                    <LineBreak/>
+                    <Run Text="• Управление пользователями: просмотр, редактирование, удаление."/>
+                    <LineBreak/>
+                    <Run Text="• Управление бронированиями: просмотр, удаление, изменение статуса (например, «Подтверждено», «Отменено»)." />
+                    <LineBreak/>
+                    <Run Text="• В режиме редактирования бронирований можно менять только выделенные поля." />
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Background="White" Margin="0,10,0,0">
+                    <TextBlock Text="📅 Моя история бронирований" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock TextWrapping="Wrap" Width="650" Style="{StaticResource TextBlockStyle}">
+                    <Run Text="На странице «Мои бронирования» вы можете: "/>
+                    <LineBreak/>
+                    <Run Text="• Просматривать все свои бронирования с датами, стоимостью и статусом."/>
+                    <LineBreak/>
+                    <Run Text="• Фильтровать по статусу (например, «В обработке», «Завершено»)." />
+                    <LineBreak/>
+                    <Run Text="• Искать по названию апартаментов или городу." />
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Background="White" Margin="0,10,0,0">
+                    <TextBlock Text="🆘 Техническая поддержка" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock TextWrapping="Wrap" Width="650" Style="{StaticResource TextBlockStyle}">
+                    <Run Text="Если у вас возникли проблемы с приложением: "/>
+                    <LineBreak/>
+                    <Run Text="• Проверьте, что вы используете последнюю версию."/>
+                    <LineBreak/>
+                    <Run Text="• Перезапустите приложение."/>
+                    <LineBreak/>
+                    <Run Text="• Если ошибка повторяется, свяжитесь с нами в разделе "/>
+                     <Hyperlink Click="ContactHyperlink_Click" Foreground="#3498DB" TextDecorations="Underline">
+                        <Run Text="контакты,"/>
+                    </Hyperlink>
+                    <Run Text=" мы ответим в течение 24 часов."/>
+                    </TextBlock>
+                </StackPanel>
+
+                <TextBlock TextWrapping="Wrap">
+                <Run Text="Спасибо, что используете ApartmentChain! Наслаждайтесь поиском идеального жилья."/>
+                <LineBreak/>
+                <Run Text="© 2026 ApartmentChain. Все права защищены." Foreground="#7F8C8D"/>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>

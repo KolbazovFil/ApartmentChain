@@ -82,5 +82,10 @@ namespace ApartmentChain
                 Application.Current.Shutdown();
             }
         }
+
+        private void Help_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new HelpPage());
+        }
     }
 }
