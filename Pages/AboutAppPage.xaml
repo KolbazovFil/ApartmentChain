@@ -5,34 +5,64 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ApartmentChain.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="570" d:DesignWidth="850"
       Title="Страница с информацией о приложении">
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        
-        <Grid Width="800">
+        <Grid Width="800" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"/>
+                <RowDefinition Height="220"/>
                 <RowDefinition Height="100"/>
-                <RowDefinition Height="150"/>
-                <RowDefinition Height="140"/>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <TextBlock Text="О приложении" Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource HeaderTextBlockStyle}"/>
-            <TextBlock Text="Приложение ApartmentChain всероссийская сеть апартартаментов в аренду, созданная Колбазовым Филиппом Дионисовичем в 2026 году." 
-                       Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" TextAlignment="Justify" HorizontalAlignment="Left" Style="{StaticResource TextBlockStyle}"/>
-            
-            <TextBlock Text="Сеть имеет собственные технические и операционные стандарты, которые сочетают высокие российские требования и специфику сегмента сдачи апартаментов. Апартартаменты сочетают в себе гостиничную и жилую составляющие." 
-                       Grid.Column="1" Grid.Row="2" TextAlignment="Justify" TextWrapping="Wrap" HorizontalAlignment="Left" Style="{StaticResource TextBlockStyle}"/>
 
-            <TextBlock Name="CountDeal" Grid.Row="3" Grid.Column="0" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" Style="{StaticResource TextBlockStyle}"/>
+            <TextBlock Text="О компании" Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource HeaderTextBlockStyle}"/>
 
-            <TextBlock Text="Год создания сети: 2026" Grid.Row="3" Grid.Column="1" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" Style="{StaticResource TextBlockStyle}"/>
+            <Border Grid.Column="0" Grid.Row="1" Padding="10" CornerRadius="15" Height="200" Width="385" Background="#80F5F5DC" Margin="5">
+                <StackPanel>
+                    <TextBlock Text="О сети ApartmentChain" FontWeight="SemiBold" HorizontalAlignment="Left" Style="{StaticResource HeaderTextBlockStyle}"/>
+                    <TextBlock Text="ApartmentChain — всероссийская сеть апарт-отелей и апартаментов, созданная для удобства и комфорта путешественников и жителей городов." 
+                               TextWrapping="Wrap" TextAlignment="Justify" Style="{StaticResource TextBlockStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Grid.Row="1" Padding="10" CornerRadius="15" Height="200" Width="385" Background="#80F5F5DC">
+                <StackPanel>
+                    <TextBlock Text="Наши стандарты и технологии" FontWeight="SemiBold" HorizontalAlignment="Left" Style="{StaticResource HeaderTextBlockStyle}"/>
+                    <TextBlock Text="Мы придерживаемся высоких российских стандартов качества и внедряем современные технологии для обеспечения безопасности, комфорта и быстрого обслуживания. "
+                               TextWrapping="Wrap" TextAlignment="Justify" HorizontalAlignment="Left" Style="{StaticResource TextBlockStyle}"/>
+                    <TextBlock Text="Обеспечиваем прозрачное управление, автоматизированные системы бронирования и обратной связи, а также круглосуточную техническую поддержку." 
+                               TextWrapping="Wrap" TextAlignment="Justify" HorizontalAlignment="Left" Style="{StaticResource TextBlockStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Center">
+                <TextBlock Text="Наши достижения" FontWeight="SemiBold" Margin="15" Style="{StaticResource HeaderTextBlockStyle}"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Год основания: 2026" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
+                    <Rectangle Width="50"/>
+                    <TextBlock Name="Apart" Text="" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
+                    <Rectangle Width="50"/>
+                    <TextBlock Name="CountDeal" Text="" FontWeight="Bold" Style="{StaticResource TextBlockStyle}"/>
+                </StackPanel>
+            </StackPanel>
+
+            <Border Grid.ColumnSpan="2" Grid.Row="3" Padding="10" CornerRadius="15" Width="790" Height="110" Background="#80F5F5DC">
+                <StackPanel>
+                    <TextBlock Text="Наша миссия" FontSize="20" FontWeight="SemiBold" />
+                    <TextBlock Text="Обеспечить комфортное, безопасное и доступное жильё для путешественников и жителей городов России. Мы постоянно развиваемся и внедряем новые технологии, чтобы делать ваше пребывание максимально приятным." 
+                               TextWrapping="Wrap" TextAlignment="Justify" HorizontalAlignment="Left" Style="{StaticResource TextBlockStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="Спасибо за интерес к нашей сети! Мы стремимся сделать ваше жилье удобным и современным." 
+                       Grid.ColumnSpan="2" Grid.Row="4" Foreground="#555" Style="{StaticResource TextBlockStyle}"/>
         </Grid>
     </ScrollViewer>
 </Page>

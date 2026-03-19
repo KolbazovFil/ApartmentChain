@@ -17,7 +17,7 @@
 
             <Menu Style="{StaticResource MenuStyle}">
                 <MenuItem Name="Contacts" Header="Контакты" ToolTip="Нажмите чтобы перейти к контактам" Style="{StaticResource MenuItemStyle}" Click="Contacts_Click" />
-                <MenuItem Name="App" Header="О приложении" ToolTip="Нажмите чтобы перейти к информации" Style="{StaticResource MenuItemStyle}" Click="App_Click"/>
+                <MenuItem Name="App" Header="О компании" ToolTip="Нажмите чтобы перейти к информации" Style="{StaticResource MenuItemStyle}" Click="App_Click"/>
                 <MenuItem Name="Help" Header="Помощь" ToolTip="Нажмите чтобы перейти к помощи" Style="{StaticResource MenuItemStyle}" Click="Help_Click"/>
                 <MenuItem Name="Exit" Header="Выход" ToolTip="Нажмите для завершения работы с приложением" Style="{StaticResource MenuItemStyle}" Click="Exit_Click"/>
             </Menu>

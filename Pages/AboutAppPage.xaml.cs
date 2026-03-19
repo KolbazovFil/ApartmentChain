@@ -15,7 +15,9 @@ namespace ApartmentChain.Pages
         {
             var context = Entities.GetContext();
             var confirmedCount = context.Booking.Count(b => b.BookingStatus.Status == "Завершено");
-            CountDeal.Text = $"Завершено сделок: {confirmedCount.ToString()}";
+            CountDeal.Text = $"Обслужили {confirmedCount.ToString()} гостей";
+            var apartCount = context.Apartaments.Count();
+            Apart.Text = $"{apartCount.ToString()} объектов по всей России";
         }
     }
 }

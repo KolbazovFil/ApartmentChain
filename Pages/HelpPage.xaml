@@ -16,7 +16,7 @@
                 <Run Text="Добро пожаловать в ApartmentChain — приложение для поиска, бронирования и управления апартаментами."/> 
                 <Run Text="Ниже приведено пошаговое руководство по использованию всех функций."/>
                 </TextBlock>
-                <StackPanel Background="White" Margin="0,10,0,0">
+                <StackPanel Background="#80F5F5DC" Margin="0,10,0,0">
                     <TextBlock Text="🏠 Главная страница" Style="{StaticResource TextBlockStyle}"/>
                     <TextBlock TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}">
                     <Run Text="На главной странице вы можете"/>
@@ -35,7 +35,7 @@
                     </TextBlock>
                 </StackPanel>
 
-                <StackPanel Background="White" Margin="0,10,0,0">
+                <StackPanel Background="#80F5F5DC" Margin="0,10,0,0">
                     <TextBlock Text="🛏️ Детали бронирования" Style="{StaticResource TextBlockStyle}"/>
                     <TextBlock TextWrapping="Wrap" Width="650" Style="{StaticResource TextBlockStyle}">
                     <Run Text="На странице «Детали апартаментов» вы можете: "/>
@@ -52,7 +52,7 @@
                     </TextBlock>
                 </StackPanel>
 
-                <StackPanel Background="White" Margin="0,10,0,0">
+                <StackPanel Background="#80F5F5DC" Margin="0,10,0,0">
                     <TextBlock Text="👤 Авторизация и профиль" Style="{StaticResource TextBlockStyle}"/>
                     <TextBlock TextWrapping="Wrap" Width="650" Style="{StaticResource TextBlockStyle}">
                     <Run Text="Для бронирования требуется "/>
@@ -70,7 +70,7 @@
                     </TextBlock>
                 </StackPanel>
 
-                <StackPanel Background="White" Margin="0,10,0,0">
+                <StackPanel Background="#80F5F5DC" Margin="0,10,0,0">
                     <TextBlock Text="⚙️ Админ-панель (для администраторов)" Style="{StaticResource TextBlockStyle}"/>
                     <TextBlock TextWrapping="Wrap" Width="650" Style="{StaticResource TextBlockStyle}">
                     <Run Text="Доступно только для пользователей с ролью «Администратор». "/>
@@ -83,7 +83,7 @@
                     </TextBlock>
                 </StackPanel>
 
-                <StackPanel Background="White" Margin="0,10,0,0">
+                <StackPanel Background="#80F5F5DC" Margin="0,10,0,0">
                     <TextBlock Text="📅 Моя история бронирований" Style="{StaticResource TextBlockStyle}"/>
                     <TextBlock TextWrapping="Wrap" Width="650" Style="{StaticResource TextBlockStyle}">
                     <Run Text="На странице «Мои бронирования» вы можете: "/>
@@ -96,7 +96,7 @@
                     </TextBlock>
                 </StackPanel>
 
-                <StackPanel Background="White" Margin="0,10,0,0">
+                <StackPanel Background="#80F5F5DC" Margin="0,10,0,0">
                     <TextBlock Text="🆘 Техническая поддержка" Style="{StaticResource TextBlockStyle}"/>
                     <TextBlock TextWrapping="Wrap" Width="650" Style="{StaticResource TextBlockStyle}">
                     <Run Text="Если у вас возникли проблемы с приложением: "/>
