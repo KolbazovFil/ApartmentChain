@@ -26,7 +26,10 @@ namespace ApartmentChain.Pages
         }
         private void RegisterHyperlink_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new RegPage(null));
+            if (Session.IsAuthorized)
+                MessageBox.Show("Вы авторизованы, невозможно перейти на страницу регистрации", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                NavigationService.Navigate(new RegPage(null));
         }
 
         private void ContactHyperlink_Click(object sender, RoutedEventArgs e)
