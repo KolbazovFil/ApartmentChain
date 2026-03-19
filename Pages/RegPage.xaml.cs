@@ -12,20 +12,24 @@ namespace ApartmentChain.Pages
     public partial class RegPage : Page
     {
         private Users _currentUser = new Users();
+        private bool _isRegistrationMode;
 
         private List<Roles> _rolesList = new List<Roles>();
 
-        public RegPage(Users user)
+        public RegPage(Users user = null)
         {
             InitializeComponent();
 
             if (user == null)
-                _currentUser = new Users()
-                {
-                    Birthday = DateTime.Today
-                };
+            {
+                _currentUser = new Users() { Birthday = DateTime.Today };
+                _isRegistrationMode = true;
+            }
             else
+            {
                 _currentUser = user;
+                _isRegistrationMode = false;
+            }
 
             DataContext = _currentUser;
             RolesComboBox.SelectedValue = _currentUser.RoleID;
@@ -49,39 +53,7 @@ namespace ApartmentChain.Pages
                 RolesComboBox.SelectedValuePath = "ID";
                 ValidPasswordTextBlock.Text = _currentUser.PasswordHash;
             }
-
-            if (isAdmin)
-            {
-                RegButton.Visibility = Visibility.Collapsed;
-                EditButton.Visibility = Visibility.Visible;
-                RegHeadText.Visibility = Visibility.Collapsed;
-                EditHeadText.Visibility = Visibility.Visible;
-                RolesComboBox.Visibility = Visibility.Visible;
-                RolesTextBox.Visibility = Visibility.Visible;
-                RowDefinitionEight.Height = new GridLength(50);
-                Title = "Страница редактирования пользователя";
-                ValidPasswordTextBlock.Visibility = Visibility.Visible;
-                ValidPswdTxb.Visibility = Visibility.Visible;
-
-                if (_currentUser != null)
-                {
-                    RolesComboBox.SelectedValue = _currentUser.RoleID;
-                }
-            }
-            else if (_currentUser != null)
-            {
-                RegButton.Visibility = Visibility.Collapsed;
-                EditButton.Visibility = Visibility.Visible;
-                RegHeadText.Visibility = Visibility.Collapsed;
-                EditHeadText.Visibility = Visibility.Visible;
-                RolesComboBox.Visibility = Visibility.Collapsed;
-                RolesTextBox.Visibility = Visibility.Collapsed;
-                RowDefinitionEight.Height = GridLength.Auto;
-                Title = "Страница редактирования пользователя";
-                ValidPasswordTextBlock.Visibility = Visibility.Visible;
-                ValidPswdTxb.Visibility = Visibility.Visible;
-            }
-            else
+            if (_isRegistrationMode)
             {
                 RegButton.Visibility = Visibility.Visible;
                 EditButton.Visibility = Visibility.Collapsed;
@@ -93,7 +65,44 @@ namespace ApartmentChain.Pages
                 Title = "Страница регистрации пользователя";
                 ValidPasswordTextBlock.Visibility = Visibility.Collapsed;
                 ValidPswdTxb.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                if (isAdmin)
+                {
+                    RegButton.Visibility = Visibility.Collapsed;
+                    EditButton.Visibility = Visibility.Visible;
+                    RegHeadText.Visibility = Visibility.Collapsed;
+                    EditHeadText.Visibility = Visibility.Visible;
+                    RolesComboBox.Visibility = Visibility.Visible;
+                    RolesTextBox.Visibility = Visibility.Visible;
+                    RowDefinitionEight.Height = new GridLength(50);
+                    Title = "Страница редактирования пользователя";
+                    ValidPasswordTextBlock.Visibility = Visibility.Visible;
+                    ValidPswdTxb.Visibility = Visibility.Visible;
 
+                    if (_currentUser != null)
+                    {
+                        RolesComboBox.SelectedValue = _currentUser.RoleID;
+                    }
+                }
+
+                else
+                {
+                    if (_currentUser != null)
+                    {
+                        RegButton.Visibility = Visibility.Collapsed;
+                        EditButton.Visibility = Visibility.Visible;
+                        RegHeadText.Visibility = Visibility.Collapsed;
+                        EditHeadText.Visibility = Visibility.Visible;
+                        RolesComboBox.Visibility = Visibility.Collapsed;
+                        RolesTextBox.Visibility = Visibility.Collapsed;
+                        RowDefinitionEight.Height = GridLength.Auto;
+                        Title = "Страница редактирования пользователя";
+                        ValidPasswordTextBlock.Visibility = Visibility.Visible;
+                        ValidPswdTxb.Visibility = Visibility.Visible;
+                    }
+                }
             }
         }
 
