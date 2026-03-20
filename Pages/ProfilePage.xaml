@@ -8,36 +8,38 @@
       d:DesignHeight="450" d:DesignWidth="720"
       Title="Страница профиля">
 
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="240"/>
-            <ColumnDefinition Width="240"/>
-            <ColumnDefinition Width="240"/>
-        </Grid.ColumnDefinitions>
-        
-        <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="100"/>
-        </Grid.RowDefinitions>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="240"/>
+            </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Профиль" Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="0" Style="{StaticResource HeaderTextBlockStyle}"/>
-        <TextBlock Text="Выйти из профиля" ToolTip="Нажмите чтобы выйти из профиля" Grid.Row="0" Grid.Column="2" Foreground="OrangeRed" Cursor="Hand" MouseDown="Exit_MouseLeftButtonDown" Style="{StaticResource TextBlockStyle}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
 
-        <Button Name="EditProfileButton" ToolTip="Нажмите чтобы отредактировать свой профиль" Grid.Row="1" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="EditProfileButton_Click">
-            <TextBlock Text="Редактировать профиль" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
-        </Button>
+            <TextBlock Text="Профиль" Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="0" Style="{StaticResource HeaderTextBlockStyle}"/>
+            <TextBlock Text="Выйти из профиля" ToolTip="Нажмите чтобы выйти из профиля" Grid.Row="0" Grid.Column="2" Foreground="OrangeRed" Cursor="Hand" MouseDown="Exit_MouseLeftButtonDown" Style="{StaticResource TextBlockStyle}"/>
 
-        <Button Name="ViewBookingButton" ToolTip="Нажмите чтобы перейти к своим бронированиям" Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="ViewBookingButton_Click">
-            <TextBlock Text="Мои бронирования" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
-        </Button>
+            <Button Name="EditProfileButton" ToolTip="Нажмите чтобы отредактировать свой профиль" Grid.Row="1" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="EditProfileButton_Click">
+                <TextBlock Text="Редактировать профиль" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
+            </Button>
 
-        <Button Name="DeleteProfileButton" ToolTip="Нажмите чтобы удалить свой профиль" Grid.Row="1" Grid.Column="3" Style="{StaticResource ButtonStyle}" Click="DeleteProfileButton_Click">
-            <TextBlock Text="Удалить свой профиль" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
-        </Button>
+            <Button Name="ViewBookingButton" ToolTip="Нажмите чтобы перейти к своим бронированиям" Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="ViewBookingButton_Click">
+                <TextBlock Text="Мои бронирования" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
+            </Button>
 
-        <Button Name="MainPageAdminButton" ToolTip="Нажмите чтобы перейти на страницу администратора" Grid.Row="2" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="MainPageAdminButton_Click">
-            <TextBlock Text="Пользователи и бронирования" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
-        </Button>
-    </Grid>
+            <Button Name="DeleteProfileButton" ToolTip="Нажмите чтобы удалить свой профиль" Grid.Row="1" Grid.Column="3" Style="{StaticResource ButtonStyle}" Click="DeleteProfileButton_Click">
+                <TextBlock Text="Удалить свой профиль" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
+            </Button>
+
+            <Button Name="MainPageAdminButton" ToolTip="Нажмите чтобы перейти на страницу администратора" Grid.Row="2" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="MainPageAdminButton_Click">
+                <TextBlock Text="Пользователи и бронирования" Width="140" TextAlignment="Center" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}"/>
+            </Button>
+        </Grid>
+    </ScrollViewer>
 </Page>
